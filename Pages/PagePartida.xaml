@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns                 = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x               = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class               = "Maui.SorteioJusto.Pages.PagePartida"
+             Title                 = "Partidas"
+             Shell.NavBarIsVisible = "False">
+
+    <Grid RowDefinitions = "5*,50*,8*">
+
+        <VerticalStackLayout>
+            <Label BackgroundColor="Red"/>
+            <Label BackgroundColor="Green"/>
+            <Label BackgroundColor="Yellow"/>
+        </VerticalStackLayout>
+
+        <Grid
+                Grid.Row       = "1"
+                Margin         = "15"
+                RowSpacing     = "10"
+                RowDefinitions = "Auto,*">
+
+            <CollectionView 
+                    Grid.Row        = "2" 
+                    ItemsSource     = "{Binding ListaDeJogadores}">
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
+                        <Image 
+                            Source        = "imagem_partida.png" 
+                            HeightRequest = "175"/>
+                        <Label 
+                            Text                    = "Registre novas partidas clicando no botão abaixo"
+                            FontSize                = "15"
+                            HorizontalOptions       = "Center"
+                            HorizontalTextAlignment = "Center"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems >
+                                    <SwipeItem 
+                                        IconImageSource = "bin.png"
+                                        BackgroundColor = "Red"/>
+                                    <!--Invoked         = "OnDeleteSwipeItemInvoked"-->
+                                    <SwipeItem 
+                                        IconImageSource = "icon_edit.png"
+                                        BackgroundColor = "LightBlue"/>
+                                    <!--Invoked         = "OnEditSwipeItemInvoked"-->
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid Padding = "0,5">
+                                <Frame 
+                                    BorderColor  = "LightGreen"
+                                    CornerRadius = "5"                                   
+                                    Padding      = "8">
+                                    <StackLayout>
+                                        <Label
+                                                Text                    = "{Binding Nome}"
+                                                TextColor               = "DarkGreen"
+                                                FontSize                = "20"
+                                                FontAttributes          = "Bold"
+                                                HorizontalTextAlignment = "Start"/>
+                                        <BoxView 
+                                                Color             = "Green"
+                                                HeightRequest     = "2"
+                                                HorizontalOptions = "Fill"/>
+                                        <Label 
+                                                Text                    = "{Binding Telefone,
+                                                                            StringFormat='Telefone: {0:F0}'}"
+                                                FontSize                = "15"
+                                                HorizontalTextAlignment = "Start"/>
+                                        <Label 
+                                                Text                    = "{Binding Classificacao, 
+                                                                            StringFormat='Classificação: {0:F0}'}"
+                                                FontSize                = "15"
+                                                HorizontalTextAlignment = "Start"/>
+                                        <Label   
+                                                Text              = "←Editar/Excluir" 
+                                                FontSize          = "15"
+                                                HorizontalOptions = "End"                                                       
+                                                TextColor         = "Gray"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <BoxView 
+            Grid.Row        = "2"
+            HeightRequest   = "1"
+            VerticalOptions = "Start"/>
+
+        <Label
+            Grid.Row       = "2"
+            Margin         = "15"
+            Text           = "{Binding ListaDeTimes.Count, 
+                               StringFormat='Jogadores Cadastrados: {0:F0}'}"
+            FontAttributes ="Bold"/>
+
+        <ImageButton
+            x:Name            = "_btnAdicionarJogador"
+            Grid.Row          = "2"
+            Margin            = "15"
+            Source            = "add.png"
+            VerticalOptions   = "End"
+            HorizontalOptions = "End"/>
+    </Grid>
+
+</ContentPage>

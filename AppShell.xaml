@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class                     = "Maui.SorteioJusto.AppShell"
+    xmlns                       = "http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x                     = "http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local                 = "clr-namespace:Maui.SorteioJusto"
+    xmlns:views                 = "clr-namespace:Maui.SorteioJusto.Pages"
+    Title                       = "Partida Justa - Sorteio de Times"
+    Shell.TitleColor            = "Green"
+    Shell.TabBarIsVisible       = "True"
+    Shell.BackgroundColor       = "LightGreen"
+    Shell.TabBarTitleColor      = "Green"
+    Shell.TabBarBackgroundColor = "LightGreen"
+    Shell.TabBarUnselectedColor = "Gray">
+
+    <TabBar>
+        <Tab Title="Jogador" Icon="icon_jogador.png">
+            <ShellContent ContentTemplate = "{DataTemplate views:PageJogador}" Route="PageJogador"/>
+        </Tab>
+        <Tab Title="Times" Icon="icon_time.png">
+            <ShellContent ContentTemplate = "{DataTemplate views:PageTime}" Route="PageTime"/>
+        </Tab>
+        <Tab Title="Partida" Icon="icon_partida.png">
+            <ShellContent ContentTemplate = "{DataTemplate views:PagePartida}" Route="PagePartida"/>
+        </Tab>
+    </TabBar>
+
+</Shell>

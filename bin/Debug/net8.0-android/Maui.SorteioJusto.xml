@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Maui.SorteioJusto</name>
+    </assembly>
+    <members>
+        <member name="T:Maui.SorteioJusto.ViewModels.ViewModelJogador">
+            <inheritdoc/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelJogador.EntryNome">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelJogador._entryNome"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelJogador.EntryTelefone">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelJogador._entryTelefone"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelJogador.ObjJogador">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelJogador._objJogador"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelJogador.ListaDeJogadores">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelJogador._listaDeJogadores"/>
+        </member>
+        <member name="T:Maui.SorteioJusto.ViewModels.ViewModelTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ObjTime">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._objTime"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ObjJogador">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._objJogador"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeJogadores">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeJogadores"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeJogadoresPresentes">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeJogadoresPresentes"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeTroca1">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeTroca1"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeTroca2">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeTroca2"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaGeralDeJogadores">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaGeralDeJogadores"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeTimes">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeTimes"/>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EntryNome">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EntryNome" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EntryTelefone">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "EntryTelefone" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ObjJogador">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ObjJogador" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaDeJogadores">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaDeJogadores" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ObjTime">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ObjTime" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaDeJogadoresPresentes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaDeJogadoresPresentes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaDeTroca1">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaDeTroca1" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaDeTroca2">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaDeTroca2" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaGeralDeJogadores">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaGeralDeJogadores" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ListaDeTimes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ListaDeTimes" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EntryNome">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EntryNome" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EntryTelefone">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "EntryTelefone" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ObjJogador">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ObjJogador" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaDeJogadores">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaDeJogadores" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ObjTime">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ObjTime" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaDeJogadoresPresentes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaDeJogadoresPresentes" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaDeTroca1">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaDeTroca1" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaDeTroca2">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaDeTroca2" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaGeralDeJogadores">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaGeralDeJogadores" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ListaDeTimes">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ListaDeTimes" generated properties.</summary>
+        </member>
+    </members>
+</doc>

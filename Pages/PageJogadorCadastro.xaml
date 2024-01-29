@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns                 = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x               = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class               = "Maui.SorteioJusto.Pages.PageJogadorCadastro"
+             Title                 = "Cadastro de Jogadores"
+             BackgroundColor       = "White"
+             Shell.TabBarIsVisible = "False">
+
+    <VerticalStackLayout 
+        Spacing         = "25"
+        Padding         = "30,0"
+        VerticalOptions = "Center">
+
+        <Image WidthRequest = "200"            
+               Source       = "imagem_cadastro.png"/>
+
+        <Entry 
+            x:Name                = "_entryNome"
+            Text                  = "{Binding ObjJogador.Nome}"
+            MaxLength             = "20"
+            WidthRequest          = "250"
+            BackgroundColor       = "WhiteSmoke"
+            PlaceholderColor      = "Gray"
+            Placeholder           = "Insira o Nome do Jogador"
+            ClearButtonVisibility = "WhileEditing"
+            Keyboard              = "Default"
+            Focused               = "EntryNome_Focused"
+            ReturnType            = "Done"/>
+
+        <Entry 
+            x:Name                = "_entryTelefone"
+            Text                  = "{Binding ObjJogador.Telefone}"
+            MaxLength             = "15"
+            WidthRequest          = "250"
+            BackgroundColor       = "WhiteSmoke"
+            PlaceholderColor      = "Gray"
+            Placeholder           = "Telefone: (XX) XXXXX-XXXX"
+            ClearButtonVisibility = "WhileEditing"
+            Keyboard              = "Telephone"
+            Focused               = "EntryTelefone_Focused"
+            ReturnType            = "Done"/>
+
+        <Label Text = 
+               "{
+                Binding Source = {x:Reference _stepper},
+                Path           = Value, 
+                StringFormat   = 'Nota do Jogador: {0:F0}'
+               }"
+               FontSize            = "Large"
+               TextColor           = "Green"
+               FontAttributes      = "Bold"
+               HorizontalOptions   = "Center"
+               VerticalOptions     = "Center"/>
+
+        <Stepper x:Name            = "_stepper"
+                 WidthRequest      = "250"
+                 Value             = "{Binding ObjJogador.Classificacao}"
+                 Minimum           = "1"
+                 Maximum           = "5"                 
+                 Increment         = "1"
+                 BackgroundColor   = "White"                 
+                 HorizontalOptions = "Center"/>
+
+        <Button  x:Name              = "_btnSalvar"
+                 WidthRequest        = "250"
+                 Text                = "Salvar"
+                 TextColor           = "Green"
+                 FontSize            = "18"
+                 FontAttributes      = "Bold"
+                 FontFamily          = "Alef"
+                 BackgroundColor     = "White"
+                 BorderColor         = "LightGreen"
+                 CornerRadius        = "10"
+                 BorderWidth         = "4"            
+                 HorizontalOptions   = "Center"
+                 Clicked             = "Button_SalvarJogador"/>
+    </VerticalStackLayout>
+</ContentPage>

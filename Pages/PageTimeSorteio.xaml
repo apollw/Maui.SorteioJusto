@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns                 = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x               = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class               = "Maui.SorteioJusto.Pages.PageTimeSorteio"
+             Title                 = "Sortear Times"
+             Shell.TabBarIsVisible = "False">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "*" />
+            <RowDefinition Height = "Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollView>
+            <VerticalStackLayout Padding = "10,0,10,0"
+                                 Spacing = "10">
+                <Grid Margin             = "0,5,0,5" 
+                      RowDefinitions     = "Auto"
+                      ColumnDefinitions  = "33*,33*,33*">
+
+                    <Label Text                    = "Nome"
+                           Grid.Row                = "0"
+                           Grid.Column             = "0"
+                           FontAttributes          = "Bold"
+                           HorizontalTextAlignment = "Start"/>
+                    <Label Text                    = "Status" 
+                           Grid.Row                = "0"
+                           Grid.Column             = "3"
+                           FontAttributes          = "Bold"
+                           HorizontalTextAlignment = "End"/>
+                </Grid>
+
+                <CollectionView x:Name      = "_collectionView" 
+                                ItemsSource = "{Binding ListaDeJogadores}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing        = "0"
+                                  RowDefinitions    = "10,Auto,10,0.5"
+                                  ColumnDefinitions = "33*,33*,33*"
+                                  VerticalOptions   = "FillAndExpand">
+                                <Label    Text              = "{Binding ObjJogador.Nome}"
+                                          Grid.Row          = "1"
+                                          Grid.Column       = "0"/>
+                                <CheckBox x:Name            = "_checkBox"
+                                          IsChecked         = "{Binding ObjJogador.Status, Mode=TwoWay}"                                           
+                                          Color             = "Green" 
+                                          Grid.Row          = "1" 
+                                          Grid.Column       = "3" 
+                                          HorizontalOptions = "End"/>
+                                <!--CheckedChanged    = "OnCheckBoxCheckedChanged"-->
+                                <BoxView  BackgroundColor   = "Black"
+                                          Grid.Row          = "3"
+                                          Grid.Column       = "0"
+                                          Grid.ColumnSpan   = "3"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
