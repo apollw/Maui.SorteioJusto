@@ -15,17 +15,32 @@ namespace Maui.SorteioJusto.Services.Implementations
 
         public async Task SetUpDb()
         {
-            if(_dbConnection == null)
+
+            if (_dbConnection == null)
             {
-                string dbPath = Path.Combine(
+
+                // Caminho para o desktop
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                //Caminho de Local Application Data
+                string localDevicePath = Path.Combine(
                     Environment.GetFolderPath(
                         Environment.SpecialFolder.
-                        LocalApplicationData),"SorteioJustoDB.db3");
+                        LocalApplicationData));
 
+                string dbFileName = "SorteioJustoDB.db3";
+
+                // Caminho completo para o arquivo do banco de dados no desktop
+                //string dbPath = Path.Combine(localDevicePath, dbFileName);
+
+                //// Caminho completo para o arquivo do banco de dados no desktop
+                string dbPath = Path.Combine(desktopPath, dbFileName);                
+
+                // Cria uma nova conexão após excluir o banco de dados antigo
                 _dbConnection = new SQLiteAsyncConnection(dbPath);
 
-                //Criação Assíncrona de Tabelas
                 await CreateTables();
+
             }
         }
 
@@ -36,11 +51,13 @@ namespace Maui.SorteioJusto.Services.Implementations
 
         public async Task CreateTables()
         {
-            await _dbConnection.CreateTableAsync<Time>();
-            await _dbConnection.CreateTableAsync<Jogador>();
-            await _dbConnection.CreateTableAsync<Partida>();
-            await _dbConnection.CreateTableAsync<TimeJogador>();
-            await _dbConnection.CreateTableAsync<PartidaJogador>();  
+            await _dbConnection.CreateTablesAsync(CreateFlags.AllImplicit, 
+                typeof(Jogador), 
+                typeof(Time),
+                typeof(TimeJogador),
+                typeof(Partida),
+                typeof(PartidaJogador)
+                );
         }
     }
 }

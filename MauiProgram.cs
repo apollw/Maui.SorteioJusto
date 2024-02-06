@@ -24,20 +24,22 @@ namespace Maui.SorteioJusto
 #endif
             //Services
             builder.Services.AddSingleton<IDbService,DbService>();
-            builder.Services.AddTransient<IRepositoryJogador, RepositoryJogador>();
-            builder.Services.AddTransient<IRepositoryPartida, RepositoryPartida>();
+            builder.Services.AddScoped<IRepositoryTime   , RepositoryTime>();
+            builder.Services.AddScoped<IRepositoryJogador, RepositoryJogador>();
+            builder.Services.AddScoped<IRepositoryPartida, RepositoryPartida>();
 
             //Pages
-            //builder.Services.AddTransient<PageTime>();
+            builder.Services.AddTransient<PageTime>();
             builder.Services.AddTransient<PageJogador>();
-            builder.Services.AddTransient<PagePartida>();            
-            //builder.Services.AddTransient<PageTimeLista>();
-            //builder.Services.AddTransient<PageTimeSorteio>();
+            builder.Services.AddTransient<PagePartida>();
+            builder.Services.AddTransient<PageTimeLista>();
+            builder.Services.AddTransient<PageTimeSorteio>();
+            builder.Services.AddTransient<PageTimeJogadores>();
             builder.Services.AddTransient<PageJogadorCadastro>();
 
             //ViewModels
             builder.Services.AddTransient<ViewModelJogador>();
-            //builder.Services.AddTransient<ViewModelTime>();
+            builder.Services.AddTransient<ViewModelTime>();
             //builder.Services.AddTransient<ViewModelPartida>();
 
             return builder.Build();

@@ -10,11 +10,11 @@ namespace Maui.SorteioJusto.Models
         private int     _isTimeCasa = 0;
         private Jogador _objJogador = new Jogador();
 
-        [PrimaryKey, NotNull]
         public int Partida { get => _partida; set => _partida = value; }
-        [PrimaryKey,NotNull]
         public int Jogador { get => _jogador; set => _jogador = value; }
         public int IsTimeCasa { get => _isTimeCasa; set => _isTimeCasa = value; }
+
+        [Ignore]
         public Jogador ObjJogador { get => _objJogador; set => _objJogador = value; }
     }
 }

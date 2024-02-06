@@ -5,60 +5,59 @@
              Title                 = "Sortear Times"
              Shell.TabBarIsVisible = "False">
 
-    <Grid>
+    <VerticalStackLayout Spacing         = "25"
+                         Padding         = "30,0"
+                         VerticalOptions = "Center">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "Auto" />
-        </Grid.RowDefinitions>
+        <ActivityIndicator     x:Name        = "_activity"
+                               Color         = "Gray"
+                               WidthRequest  = "75"
+                               HeightRequest = "75"
+                               IsRunning     = "False"
+                               IsVisible     = "False"/>
 
-        <ScrollView>
-            <VerticalStackLayout Padding = "10,0,10,0"
-                                 Spacing = "10">
-                <Grid Margin             = "0,5,0,5" 
-                      RowDefinitions     = "Auto"
-                      ColumnDefinitions  = "33*,33*,33*">
+        <Label     x:Name                    = "_lblCarregando"
+                   Text                      = "Sorteando os Times..."
+                   IsVisible                 = "False"
+                   HorizontalTextAlignment   = "Center"/>
 
-                    <Label Text                    = "Nome"
-                           Grid.Row                = "0"
-                           Grid.Column             = "0"
-                           FontAttributes          = "Bold"
-                           HorizontalTextAlignment = "Start"/>
-                    <Label Text                    = "Status" 
-                           Grid.Row                = "0"
-                           Grid.Column             = "3"
-                           FontAttributes          = "Bold"
-                           HorizontalTextAlignment = "End"/>
-                </Grid>
 
-                <CollectionView x:Name      = "_collectionView" 
-                                ItemsSource = "{Binding ListaDeJogadores}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid RowSpacing        = "0"
-                                  RowDefinitions    = "10,Auto,10,0.5"
-                                  ColumnDefinitions = "33*,33*,33*"
-                                  VerticalOptions   = "FillAndExpand">
-                                <Label    Text              = "{Binding ObjJogador.Nome}"
-                                          Grid.Row          = "1"
-                                          Grid.Column       = "0"/>
-                                <CheckBox x:Name            = "_checkBox"
-                                          IsChecked         = "{Binding ObjJogador.Status, Mode=TwoWay}"                                           
-                                          Color             = "Green" 
-                                          Grid.Row          = "1" 
-                                          Grid.Column       = "3" 
-                                          HorizontalOptions = "End"/>
-                                <!--CheckedChanged    = "OnCheckBoxCheckedChanged"-->
-                                <BoxView  BackgroundColor   = "Black"
-                                          Grid.Row          = "3"
-                                          Grid.Column       = "0"
-                                          Grid.ColumnSpan   = "3"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+        <Image   x:Name="_imgSorteio"
+                 WidthRequest      = "200"            
+                 Source            = "imagem_sorteio.png"/>
+
+        <Label   x:Name="_lblQuantidade"
+                 Text              = "{Binding Source={x:Reference _stepper},
+                                     Path=Value,
+                                     StringFormat='Número de Jogadores: {0:F0}'}"
+                 FontSize          = "Medium"
+                 TextColor         = "Green"
+                 HorizontalOptions = "Center"
+                 VerticalOptions   = "Center" />
+
+        <Stepper x:Name            = "_stepper"
+                 Minimum           = "2"
+                 Maximum           = "11"                 
+                 Increment         = "1"
+                 BackgroundColor   = "White"                 
+                 HorizontalOptions = "Center"
+                 ValueChanged      = "OnStepperValueChanged"/>
+
+        <Button  x:Name="_btnSorteio"           
+                 WidthRequest      = "250"
+                 Text              = "Iniciar Sorteio"
+                 TextColor         = "Green"
+                 FontSize          = "18"
+                 FontAttributes    = "Bold"
+                 FontFamily        = "Alef"
+                 BackgroundColor   = "White"
+                 BorderColor       = "LightGreen"
+                 CornerRadius      = "10"
+                 BorderWidth       = "4"            
+                 HorizontalOptions = "Center"
+                 Clicked           = "SortearTimes"
+                 />
+
+    </VerticalStackLayout>
 
 </ContentPage>

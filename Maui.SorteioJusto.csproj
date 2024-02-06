@@ -112,6 +112,9 @@
 	  <MauiXaml Update="Pages\PageTime.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\PageTimeJogadores.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\PageTimeLista.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

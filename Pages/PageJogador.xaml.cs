@@ -6,11 +6,11 @@ namespace Maui.SorteioJusto.Pages;
 
 public partial class PageJogador : ContentPage
 {
-    ViewModelJogador VMJogador  = new ViewModelJogador();
+    ViewModelJogador   VMJogador   = new ViewModelJogador();
 
     public PageJogador(IRepositoryJogador rpJogador)
     {
-        InitializeComponent();
+        InitializeComponent();        
         VMJogador      = new ViewModelJogador(rpJogador);
         BindingContext = VMJogador;
     }
@@ -35,7 +35,7 @@ public partial class PageJogador : ContentPage
         if (item != null && confirmar)
         {
             VMJogador.ListaDeJogadores.Remove(item);
-            VMJogador.ExcluirJogador(item.Id);
+            VMJogador.ExcluirJogador(item);
         }
     }
 

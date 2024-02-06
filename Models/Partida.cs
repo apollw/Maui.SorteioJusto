@@ -22,6 +22,8 @@ namespace Maui.SorteioJusto.Models
         public int TimeVencedor { get => _timeVencedor; set => _timeVencedor = value; }
         public int TimeCasaGols { get => _timeCasaGols; set => _timeCasaGols = value; }
         public int TimeVisitanteGols { get => _timeVisitanteGols; set => _timeVisitanteGols = value; }
+
+        [Ignore]
         public List<PartidaJogador> ListaPartidaJogador { get => _listaPartidaJogador; set => _listaPartidaJogador = value; }
 
         public List<Jogador> GetListaJogadores()

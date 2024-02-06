@@ -34,59 +34,42 @@
                             HorizontalTextAlignment = "Center"/>
                     </StackLayout>
                 </CollectionView.EmptyView>
+                
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems >
-                                    <SwipeItem 
-                                        IconImageSource = "bin.png"
-                                        BackgroundColor = "Red"/>
-                                    <!--Invoked         = "OnDeleteSwipeItemInvoked"-->
-                                    <SwipeItem 
-                                        IconImageSource = "icon_edit.png"
-                                        BackgroundColor = "LightBlue"/>
-                                    <!--Invoked         = "OnEditSwipeItemInvoked"-->
-                                </SwipeItems>
-                            </SwipeView.RightItems>
+                        <DataTemplate>
+                            <StackLayout Padding         = "5"
+                                             WidthRequest    = "350">
 
-                            <Grid Padding = "0,5">
-                                <Frame 
-                                    BorderColor  = "LightGreen"
-                                    CornerRadius = "5"                                   
-                                    Padding      = "8">
+                                <Frame   BorderColor     = "Gray"                                                    
+                                             Padding         = "20"
+                                             BackgroundColor = "WhiteSmoke"
+                                             CornerRadius    = "0">
+
                                     <StackLayout>
-                                        <Label
-                                                Text                    = "{Binding Nome}"
-                                                TextColor               = "DarkGreen"
-                                                FontSize                = "20"
-                                                FontAttributes          = "Bold"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <BoxView 
-                                                Color             = "Green"
-                                                HeightRequest     = "2"
-                                                HorizontalOptions = "Fill"/>
-                                        <Label 
-                                                Text                    = "{Binding Telefone,
-                                                                            StringFormat='Telefone: {0:F0}'}"
-                                                FontSize                = "15"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <Label 
-                                                Text                    = "{Binding Classificacao, 
-                                                                            StringFormat='Classificação: {0:F0}'}"
-                                                FontSize                = "15"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <Label   
-                                                Text              = "←Editar/Excluir" 
-                                                FontSize          = "15"
-                                                HorizontalOptions = "End"                                                       
-                                                TextColor         = "Gray"/>
+                                        <Label   Text              = "{Binding Nome, StringFormat='{0}'}"
+                                                 FontSize          = "20"
+                                                 FontAttributes    = "Bold" />
+
+                                        <BoxView Color             = "Gray"
+                                                 HeightRequest     = "2"
+                                                 HorizontalOptions = "Fill"/>
+
+                                        <!--Aqui ficam as informações dos jogadores de cada time-->
+                                        <StackLayout BindableLayout.ItemsSource = "{Binding ListaJogadores}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout>
+                                                        <Label Text="{Binding Nome, StringFormat='{0}'}" />
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
                                     </StackLayout>
+
                                 </Frame>
-                            </Grid>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
 

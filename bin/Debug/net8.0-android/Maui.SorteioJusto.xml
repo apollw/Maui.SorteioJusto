@@ -28,9 +28,6 @@
         <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ObjJogador">
             <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._objJogador"/>
         </member>
-        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeJogadores">
-            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeJogadores"/>
-        </member>
         <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeJogadoresPresentes">
             <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeJogadoresPresentes"/>
         </member>
@@ -45,6 +42,9 @@
         </member>
         <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeTimes">
             <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeTimes"/>
+        </member>
+        <member name="P:Maui.SorteioJusto.ViewModels.ViewModelTime.ListaDeJogadores">
+            <inheritdoc cref="F:Maui.SorteioJusto.ViewModels.ViewModelTime._listaDeJogadores"/>
         </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
             <summary>

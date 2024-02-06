@@ -11,7 +11,6 @@ namespace Maui.SorteioJusto.Services.Implementations
         public RepositoryJogador(IDbService dbService)
         {
             _dbConnection = dbService.GetDbConnection();
-            //Task.Run(async() => await _dbConnection.CreateTableAsync<Jogador>());
         }
 
         public async Task<List<Jogador>> GetJogadoresAsync()

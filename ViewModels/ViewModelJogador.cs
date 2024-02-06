@@ -7,8 +7,11 @@ namespace Maui.SorteioJusto.ViewModels
 {
     public partial class ViewModelJogador : ObservableObject
     {
+        //Acesso aos Dados
         private readonly IRepositoryJogador _rpJogador;
-        private bool   _isCadastrado;
+
+        //Variáveis 
+        private bool _isCadastrado;
         [ObservableProperty]
         private string _entryNome     = String.Empty;
         [ObservableProperty]
@@ -72,16 +75,14 @@ namespace Maui.SorteioJusto.ViewModels
                     throw new Exception("Telefone não informado");
                 }
 
-                foreach (Jogador element in listaTempJogadores)
+                if (listaTempJogadores.Any(element => element.Telefone == jogador.Telefone 
+                    && jogador.Id != element.Id))
                 {
-                    if (element.Telefone == jogador.Telefone && jogador.Id != element.Id)
-                    {
-                        result = false;
-                        throw new Exception("Telefone já registrado!");
-                    }
+                    result = false;
+                    throw new Exception("Telefone já registrado!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Erro", ex.Message, "Fechar");
             }       
@@ -93,13 +94,13 @@ namespace Maui.SorteioJusto.ViewModels
         {
             bool isEdicao     = false;
             bool isVerificado = await VerificarJogador(jogador);
-            
+
             //Salva ObjJogador
             if (isVerificado)
             {
                 ObjJogador = jogador;
             }
-            
+
             //Verifica se é Edição
             foreach (Jogador element in ListaDeJogadores)
             {
@@ -110,16 +111,16 @@ namespace Maui.SorteioJusto.ViewModels
                     ListaDeJogadores.Add(ObjJogador);
                     break;
                 }
-            }            
+            }
 
             //Salva na memória se não existir ainda
             if (isVerificado && !isEdicao)
             {
-                ListaDeJogadores.Add(ObjJogador);
                 IsCadastrado = true;
-                await _rpJogador.AddJogadorAsync(jogador);                
+                ListaDeJogadores.Add(ObjJogador);
+                await _rpJogador.AddJogadorAsync(jogador);
             }
-            
+
             //Salva o jogador editado
             if (isVerificado && isEdicao)
             {
@@ -128,9 +129,9 @@ namespace Maui.SorteioJusto.ViewModels
             }
         }
 
-        public async void ExcluirJogador(int id)
+        public void ExcluirJogador(Jogador jogador)
         {
-            await _rpJogador.DeleteJogadorAsync(id);
+            _rpJogador.DeleteJogadorAsync(jogador.Id);
         }
 
         public async void CarregarLista()
