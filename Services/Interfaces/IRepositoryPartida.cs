@@ -1,5 +1,4 @@
-﻿
-using Maui.SorteioJusto.Models;
+﻿using Maui.SorteioJusto.Models;
 
 namespace Maui.SorteioJusto.Services.Interfaces
 {
@@ -10,5 +9,13 @@ namespace Maui.SorteioJusto.Services.Interfaces
         Task<int> AddPartidaAsync(Partida partida);
         Task<int> UpdatePartidaAsync(Partida partida);
         Task<int> DeletePartidaAsync(int partidaId);
+
+        //Métodos PartidaJogador
+        Task<List<PartidaJogador>> GetPartidaJogadoresAsync();
+        Task<PartidaJogador> GetPartidaJogadorAsync(int partidaId);
+        Task<int> AddPartidaJogadorAsync(PartidaJogador partidaJogador);
+        Task<int> UpdatePartidaJogadorAsync(PartidaJogador partidaJogador);
+        Task<int> DeletePartidaJogadorAsync(int partidaId);
+        Task DeleteListaDePartidaJogadorAsync(List<PartidaJogador> listaParaExclusao);
     }
 }

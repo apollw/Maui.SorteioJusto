@@ -9,24 +9,12 @@
                          Padding         = "30,0"
                          VerticalOptions = "Center">
 
-        <ActivityIndicator     x:Name        = "_activity"
-                               Color         = "Gray"
-                               WidthRequest  = "75"
-                               HeightRequest = "75"
-                               IsRunning     = "False"
-                               IsVisible     = "False"/>
+        <Image
+            x:Name       ="_imgSorteio"
+            WidthRequest = "200"            
+            Source       = "imagem_sorteio.png"/>
 
-        <Label     x:Name                    = "_lblCarregando"
-                   Text                      = "Sorteando os Times..."
-                   IsVisible                 = "False"
-                   HorizontalTextAlignment   = "Center"/>
-
-
-        <Image   x:Name="_imgSorteio"
-                 WidthRequest      = "200"            
-                 Source            = "imagem_sorteio.png"/>
-
-        <Label   x:Name="_lblQuantidade"
+        <Label   x:Name            ="_lblQuantidade"
                  Text              = "{Binding Source={x:Reference _stepper},
                                      Path=Value,
                                      StringFormat='Número de Jogadores: {0:F0}'}"

@@ -20,6 +20,9 @@
     <MauiXaml Update="Pages\PagePartida.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Pages\PagePartidaRegistro.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Pages\PageTime.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

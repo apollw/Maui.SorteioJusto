@@ -6,7 +6,7 @@ namespace Maui.SorteioJusto.Models
     public class Time
     {
         private int           _id               = 0;
-         private string        _nome             = string.Empty;
+        private string        _nome             = string.Empty;
         private int           _nivel            = 0;
         private int           _totalJogadores   = 0;
         private int           _NumeroDeVitorias = 0;
@@ -14,7 +14,7 @@ namespace Maui.SorteioJusto.Models
         private int           _NumeroDeDerrotas = 0;
         private List<Jogador> _listaJogadores   = new List<Jogador>();
 
-        [PrimaryKey, AutoIncrement, NotNull]
+        [PrimaryKey,NotNull]
         public int Id { get => _id; set => _id = value; }
         [MaxLength(15),NotNull]
         public string Nome { get => _nome; set => _nome = value; }

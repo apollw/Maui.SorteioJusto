@@ -7,7 +7,7 @@
 
     <Grid RowDefinitions = "5*,50*,8*">
 
-        <VerticalStackLayout Grid.Row="0">
+        <VerticalStackLayout>
             <Label BackgroundColor="Red"/>
             <Label BackgroundColor="Green"/>
             <Label BackgroundColor="Yellow"/>
@@ -89,10 +89,10 @@
             x:Name            = "_btnSortearTimes"
             Grid.Row          = "2"
             Margin            = "15"
-            Source            = "add.png"
-            Clicked           = "Button_SortearTimes"
+            Source            = "add.png"            
             VerticalOptions   = "End"
-            HorizontalOptions = "End"/>
+            HorizontalOptions = "End"
+            Clicked           = "Button_SortearTimes"/>
     </Grid>
 
 </ContentPage>

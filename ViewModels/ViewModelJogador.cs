@@ -35,26 +35,26 @@ namespace Maui.SorteioJusto.ViewModels
             CarregarLista();
         }
 
-        private int GerarNovoId(int id)
-        {
-            if (id != 0)
-            {
-                return id;
-            }
-            else
-            {
-                if (ListaDeJogadores.Count == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    int ultimoIdUtilizado = ListaDeJogadores.Max(jogador => jogador.Id);
-                    int novoId = ultimoIdUtilizado + 1;
-                    return novoId;
-                }
-            }
-        }
+        //private int GerarNovoId(int id)
+        //{
+        //    if (id != 0)
+        //    {
+        //        return id;
+        //    }
+        //    else
+        //    {
+        //        if (ListaDeJogadores.Count == 0)
+        //        {
+        //            return 1;
+        //        }
+        //        else
+        //        {
+        //            int ultimoIdUtilizado = ListaDeJogadores.Max(jogador => jogador.Id);
+        //            int novoId = ultimoIdUtilizado + 1;
+        //            return novoId;
+        //        }
+        //    }
+        //}
 
         private async Task<bool> VerificarJogador(Jogador jogador) 
         {

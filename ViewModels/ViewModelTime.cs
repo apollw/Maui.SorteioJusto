@@ -45,9 +45,7 @@ namespace Maui.SorteioJusto.ViewModels
         public int  QuantidadeDeTimes   { get => _quantidadeDeTimes;   set => _quantidadeDeTimes   = value; }
 
         public ViewModelTime()
-        {
-                
-        }
+        { }
 
         public ViewModelTime(IRepositoryJogador rpJogador, IRepositoryTime rpTime)
         {
@@ -57,19 +55,15 @@ namespace Maui.SorteioJusto.ViewModels
             ListaDeTroca2             = new List<Jogador>();
             ListaDeJogadoresPresentes = new List<Jogador>();
             ListaDeTimes              = new ObservableCollection<Time>();
+            ListaDeJogadores          = new ObservableCollection<Jogador>();
 
-            _rpJogador     = rpJogador;
-            _rpTime        = rpTime;
-
-            CarregarListaDeJogadores();
-            CarregarListaDeTimes();
+            _rpJogador = rpJogador;
+            _rpTime    = rpTime;
         }
 
         public async Task SortearTimes()
         {
-            //Reseta a Lista Atual de Times
-            ListaDeTimes = new ObservableCollection<Time>();
-            ListaDeJogadoresPresentes = ListaDeJogadores.Where(j => j.Status == 1).ToList();
+            ListaDeJogadoresPresentes     = ListaDeJogadores.Where(j => j.Status == 1).ToList();
             List<Jogador> listaTemporaria = new List<Jogador>();
 
             listaTemporaria = new List<Jogador>(ListaDeJogadoresPresentes);
@@ -88,7 +82,8 @@ namespace Maui.SorteioJusto.ViewModels
             }
             else
             {
-                TamanhoDaEquipe = 0;
+                IsAptoParaSorteio = false;
+                TamanhoDaEquipe   = 2;
             }
 
             if (IsAptoParaSorteio)
@@ -104,6 +99,16 @@ namespace Maui.SorteioJusto.ViewModels
                 {
                     Time timeGen = new Time();
 
+                    //Criação de Id
+                    if (ListaDeTimes.Count == 0)
+                        timeGen.Id = 1;
+                    else
+                    {
+                        int ultimoIdUtilizado = ListaDeTimes.Max(time => time.Id);
+                        int novoId = ultimoIdUtilizado + 1;
+                        timeGen.Id = novoId;
+                    }
+
                     //Inicializa a propriedade ListaJogadores pela quantidade de jogadores fornecida
                     timeGen.ListaJogadores = new List<Jogador>();
                     for (int i = 0; i < TamanhoDaEquipe; i++)
@@ -114,7 +119,6 @@ namespace Maui.SorteioJusto.ViewModels
                         jogador.Telefone      = string.Empty;
                         jogador.Classificacao = 0;
                         timeGen.ListaJogadores.Add(jogador);
-
                     }
 
                     // Cria lista de TimeJogador
@@ -135,22 +139,8 @@ namespace Maui.SorteioJusto.ViewModels
                     while (k <= TamanhoDaEquipe);
                     k = 1;//Reinicia o ciclo de adicionar jogadores
 
-                    //Criação de Id
-                    if (ListaDeTimes.Count == 0)
-                    {
-                        timeGen.Id = 1; // Se a lista está vazia, retorna 1 como o novo ID
-                    }
-                    else
-                    {
-                        int ultimoIdUtilizado = ListaDeTimes.Max(time => time.Id);
-                        int novoId = ultimoIdUtilizado + 1;
-                        timeGen.Id = novoId;
-                    }
                     timeGen.Nome = "Time " + j;
                     timeGen.TotalJogadores = TamanhoDaEquipe;
-
-                    //Após esse processo, adicionamos o time na lista geral de times                    
-                    ListaDeTimes.Add(timeGen);
 
                     //Adicionar associação de Time + Jogador na Lista
                     foreach (Jogador element in timeGen.ListaJogadores)
@@ -158,11 +148,11 @@ namespace Maui.SorteioJusto.ViewModels
                         TimeJogador timeJogador = new TimeJogador();
                         timeJogador.Time        = timeGen.Id;
                         timeJogador.Jogador     = element.Id;
-                        //Salvar tabela de TimeJogador do timeGen no Banco
                         await _rpTime.AddTimeJogadorAsync(timeJogador);
                     }
 
                     //Salvar timeGen no Banco
+                    ListaDeTimes.Add(timeGen);
                     await _rpTime.AddTimeAsync(timeGen);
                     j++;
                 } while (j <= QuantidadeDeTimes);
@@ -171,22 +161,26 @@ namespace Maui.SorteioJusto.ViewModels
                 if (listaTemporaria.Count != 0)
                 {
                     Time timeEspera = new Time();
+                    
+                    int ultimoIdUtilizado = ListaDeTimes.Max(time => time.Id);
+                    int novoId            = ultimoIdUtilizado + 1;
+                    timeEspera.Id         = novoId;
                     timeEspera.ListaJogadores = new List<Jogador>();
 
                     for (int i = 0; i < listaTemporaria.Count; i++)
                     {
-                        Jogador jogador = new Jogador();
-                        jogador.Id = 0;
-                        jogador.Nome = string.Empty;
-                        jogador.Telefone = string.Empty;
+                        Jogador jogador       = new Jogador();
+                        jogador.Id            = 0;
+                        jogador.Nome          = string.Empty;
+                        jogador.Telefone      = string.Empty;
                         jogador.Classificacao = 0;
                         timeEspera.ListaJogadores.Add(jogador);
                     }
 
                     do
                     {
-                        Random rnd = new Random();
-                        int indice = rnd.Next(listaTemporaria.Count - 1);
+                        Random rnd      = new Random();
+                        int indice      = rnd.Next(listaTemporaria.Count - 1);
                         Jogador element = listaTemporaria[indice];
 
                         listaTemporaria.RemoveAt(indice);
@@ -194,23 +188,9 @@ namespace Maui.SorteioJusto.ViewModels
                         k++; //Adicionou um jogador
                     }
                     while (listaTemporaria.Count != 0);
-
-                    //Criação de Id
-                    if (ListaDeTimes.Count == 0)
-                    {
-                        timeEspera.Id = 1;
-                    }
-                    else
-                    {
-                        int ultimoIdUtilizado = ListaDeTimes.Max(time => time.Id);
-                        int novoId = ultimoIdUtilizado + 1;
-                        timeEspera.Id = novoId;
-                    }
+                    
                     timeEspera.Nome = "Time " + j;
                     timeEspera.TotalJogadores = TamanhoDaEquipe;
-
-                    //Após esse processo, adicionamos o time na lista geral de times                    
-                    ListaDeTimes.Add(timeEspera);
 
                     foreach (Jogador element in timeEspera.ListaJogadores)
                     {
@@ -221,12 +201,13 @@ namespace Maui.SorteioJusto.ViewModels
                     }
 
                     //Salvar timeEspera no Banco
+                    ListaDeTimes.Add(timeEspera);
                     await _rpTime.AddTimeAsync(timeEspera);
                 }
 
                 IsCriacaoFinalizada = true;
 
-                ////Após salvar os times, atualiza o status de presença de todos os jogadores
+                //Após salvar os times, atualiza o status de presença de todos os jogadores
                 foreach (Jogador element in ListaDeJogadores)
                 {
                     element.Status = 0;
@@ -238,40 +219,17 @@ namespace Maui.SorteioJusto.ViewModels
                 await Shell.Current.Navigation.PopAsync();
             }
         }
-        
-        public void AtualizarDadosJogador(Jogador jogador)
-            {
-                var jogadorExistente = ListaDeJogadores.FirstOrDefault(j => j.Id == jogador.Id);
-                if (jogadorExistente != null)
-                {
-                    jogadorExistente.Status = jogador.Status;
-                }
-            }
 
-        public List<Jogador> CarregarListaTroca()
-            {
-                //ObservableCollection<Time> times = new ObservableCollection<Time>(ListaCarregadaDeTimes);
-                //List<Jogador> jogadores = times.SelectMany(time => time.ListaJogadores).ToList();
-                //List<Jogador> listaAtualizada = new List<Jogador>();
+        public async Task ExcluirListaDeTimes()
+        {
+            List<Time> listaParaExclusao = await _rpTime.GetTimesAsync();
+            await _rpTime.DeleteListaDeTimesAsync(listaParaExclusao);
+        }
 
-                //// Carregar lista sem jogadores selecionados para troca
-                //foreach (Jogador element2 in jogadores)
-                //{
-                //    if (!ListaParaTroca1.Any(j => j.Id == element2.Id))
-                //    {
-                //        Jogador objJogador = new Jogador();
-                //        objJogador.Id = element2.Id;
-                //        objJogador.Nome = element2.Nome;
-                //        objJogador.Telefone = element2.Telefone;
-                //        objJogador.Status = element2.Status;
-                //        objJogador.Classificacao = element2.Classificacao;
-
-                //        listaAtualizada.Add(objJogador);
-                //    }
-                //}
-                ////ListaGeralTroca.AddRange(listaAtualizada);
-
-                return new List<Jogador>();
+        public async Task ExcluirListaDeTimeJogador()
+        {
+            List<TimeJogador> listaParaExclusao = await _rpTime.GetTimeJogadoresAsync();
+            await _rpTime.DeleteListaDeTimeJogadorAsync(listaParaExclusao);
         }
 
         public async void CarregarListaDeTimes()
@@ -312,16 +270,13 @@ namespace Maui.SorteioJusto.ViewModels
             }
         }
 
-        public async Task ExcluirListaDeTimes()
+        public void AtualizarDadosJogador(Jogador jogador)
         {
-            List<Time> listaParaExclusao = await _rpTime.GetTimesAsync();
-            await _rpTime.DeleteListaDeTimesAsync(listaParaExclusao);
-        }
-
-        public async Task ExcluirListaDeTimeJogador()
-        {
-            List<TimeJogador> listaParaExclusao = await _rpTime.GetTimeJogadoresAsync();
-            await _rpTime.DeleteListaDeTimeJogadorAsync(listaParaExclusao);
+            var jogadorExistente = ListaDeJogadores.FirstOrDefault(j => j.Id == jogador.Id);
+            if (jogadorExistente != null)
+            {
+                jogadorExistente.Status = jogador.Status;
+            }
         }
 
     }

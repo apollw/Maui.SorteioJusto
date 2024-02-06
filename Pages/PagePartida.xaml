@@ -21,7 +21,7 @@
 
             <CollectionView 
                     Grid.Row        = "2" 
-                    ItemsSource     = "{Binding ListaDeJogadores}">
+                    ItemsSource     = "{Binding ListaDePartidas}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
                         <Image 
@@ -38,49 +38,41 @@
                     <DataTemplate>
                         <SwipeView>
                             <SwipeView.RightItems>
+                                <!--<SwipeItems Mode="Execute"> Caso não seja necessária confirmação-->
                                 <SwipeItems >
-                                    <SwipeItem 
-                                        IconImageSource = "bin.png"
-                                        BackgroundColor = "Red"/>
+                                    <SwipeItem         IconImageSource = "bin.png"
+                                                       BackgroundColor = "Red"/>
                                     <!--Invoked         = "OnDeleteSwipeItemInvoked"-->
-                                    <SwipeItem 
-                                        IconImageSource = "icon_edit.png"
-                                        BackgroundColor = "LightBlue"/>
-                                    <!--Invoked         = "OnEditSwipeItemInvoked"-->
+                                    <SwipeItem         IconImageSource = "icon_edit.png"
+                                                       BackgroundColor = "LightBlue"/>
+                                    <!--Invoked         = "OnShowSwipeItemInvoked"-->
                                 </SwipeItems>
                             </SwipeView.RightItems>
 
-                            <Grid Padding = "0,5">
-                                <Frame 
-                                    BorderColor  = "LightGreen"
-                                    CornerRadius = "5"                                   
-                                    Padding      = "8">
+                            <Grid      Padding      = "0,5">
+                                <Frame BorderColor  = "LightGreen"
+                                               CornerRadius = "5"                                   
+                                               Padding      = "8">
+
+
                                     <StackLayout>
-                                        <Label
-                                                Text                    = "{Binding Nome}"
-                                                TextColor               = "DarkGreen"
-                                                FontSize                = "20"
-                                                FontAttributes          = "Bold"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <BoxView 
-                                                Color             = "Green"
-                                                HeightRequest     = "2"
-                                                HorizontalOptions = "Fill"/>
-                                        <Label 
-                                                Text                    = "{Binding Telefone,
-                                                                            StringFormat='Telefone: {0:F0}'}"
-                                                FontSize                = "15"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <Label 
-                                                Text                    = "{Binding Classificacao, 
-                                                                            StringFormat='Classificação: {0:F0}'}"
-                                                FontSize                = "15"
-                                                HorizontalTextAlignment = "Start"/>
-                                        <Label   
-                                                Text              = "←Editar/Excluir" 
-                                                FontSize          = "15"
-                                                HorizontalOptions = "End"                                                       
-                                                TextColor         = "Gray"/>
+                                        <Label           Text                    = "{Binding Id, StringFormat='Partida {0}'}"
+                                                         TextColor               = "DarkGreen"
+                                                         FontSize                = "20"
+                                                         FontAttributes          = "Bold"
+                                                         HorizontalTextAlignment = "Center"/>
+                                        <BoxView         Color                   = "Green"
+                                                         HeightRequest           = "2"
+                                                         HorizontalOptions       = "Fill"/>
+                                        <Label           Text                    = "{Binding Data, StringFormat='Data da Partida: {0}'}"
+                                                         FontSize                = "15"
+                                                         HorizontalTextAlignment = "Start"/>
+
+                                        <Label           Text                    = "←Ver Histórico/Excluir Partida" 
+                                                         FontSize                = "15"
+                                                         HorizontalOptions       = "End"                                                       
+                                                         TextColor               = "Gray"/>
+
                                     </StackLayout>
                                 </Frame>
                             </Grid>
@@ -98,17 +90,18 @@
         <Label
             Grid.Row       = "2"
             Margin         = "15"
-            Text           = "{Binding ListaDeTimes.Count, 
-                               StringFormat='Jogadores Cadastrados: {0:F0}'}"
+            Text           = "{Binding ListaDePartidas.Count, 
+                               StringFormat='Partidas Registradas: {0:F0}'}"
             FontAttributes ="Bold"/>
 
         <ImageButton
-            x:Name            = "_btnAdicionarJogador"
+            x:Name            = "_btnAdicionarPartida"
             Grid.Row          = "2"
             Margin            = "15"
             Source            = "add.png"
             VerticalOptions   = "End"
-            HorizontalOptions = "End"/>
+            HorizontalOptions = "End"
+            Clicked           = "Button_AdicionarPartida"/>
     </Grid>
 
 </ContentPage>

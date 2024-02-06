@@ -109,6 +109,9 @@
 	  <MauiXaml Update="Pages\PagePartida.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\PagePartidaRegistro.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\PageTime.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

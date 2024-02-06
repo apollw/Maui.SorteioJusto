@@ -14,7 +14,7 @@ namespace Maui.SorteioJusto.Models
         private int                  _timeVisitanteGols   = 0;
         private List<PartidaJogador> _listaPartidaJogador = new List<PartidaJogador>();
 
-        [PrimaryKey, AutoIncrement, NotNull]
+        [PrimaryKey,NotNull]
         public int Id { get => _id; set => _id = value; }
         public int TimeCasa { get => _timeCasa; set => _timeCasa = value; }
         public int TimeVisitante { get => _timeVisitante; set => _timeVisitante = value; }

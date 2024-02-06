@@ -5,11 +5,14 @@ namespace Maui.SorteioJusto.Models
     [Table("PartidaJogador")]
     public class PartidaJogador
     {
+        private int     _id         = 0;
         private int     _partida    = 0;
         private int     _jogador    = 0;
         private int     _isTimeCasa = 0;
         private Jogador _objJogador = new Jogador();
 
+        [PrimaryKey,NotNull,AutoIncrement]
+        public int Id      { get => _id;      set => _id = value; }
         public int Partida { get => _partida; set => _partida = value; }
         public int Jogador { get => _jogador; set => _jogador = value; }
         public int IsTimeCasa { get => _isTimeCasa; set => _isTimeCasa = value; }

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns   = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class = "Maui.SorteioJusto.Pages.PagePartidaRegistro"
+             Title   = "Registro de Partida">
+
+    <ScrollView>
+        <Grid RowDefinitions="*,3">
+            <VerticalStackLayout VerticalOptions="CenterAndExpand">
+
+                <Picker x:Name                  = "_picker1"
+                        Title                   = "Selecione a Equipe de Casa" 
+                        Grid.Column             = "0"                                   
+                        TextColor               = "Black" 
+                        TitleColor              = "Black"
+                        BackgroundColor         = "WhiteSmoke"
+                        FontSize                = "20"
+                        HorizontalTextAlignment = "Center"
+                        ItemsSource             = "{Binding ListaDeTimes}"
+                        SelectedItem            = "{Binding TimeSelecionado1}"                    
+                        IsVisible               = "{Binding PodeIniciarPartida}"
+                        ItemDisplayBinding      = "{Binding Nome}"/>
+
+                <StackLayout Padding            = "5" 
+                             WidthRequest       = "250" 
+                             IsVisible          = "{Binding PodeIniciarPartida}">
+
+                    <Frame   BorderColor        = "White"
+                             CornerRadius       = "0" 
+                             Padding            = "22" 
+                             BackgroundColor    = "White">
+
+                        <StackLayout     BindableLayout.ItemsSource = "{Binding TimeSelecionado1}">
+                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado1.ListaJogadores}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text              = "{Binding Nome, StringFormat='{0}'}"
+                                                   FontSize          = "20"
+                                                   HorizontalOptions = "CenterAndExpand"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <Button Text                = "Preencher Equipe"
+                                    TextColor           = "Gray"
+                                    BackgroundColor     = "White"
+                                    FontSize            = "12"
+                                    HorizontalOptions   = "Center"
+                                    Clicked             = "ButtonEditarTime"
+                                    CommandParameter    = "_picker1"
+                                    IsVisible           = "{Binding TimeSelecionado1.IsTimeIncompleto}"/>
+                        </StackLayout>
+
+                    </Frame>
+                </StackLayout>
+
+                <Picker x:Name                  = "_picker2"
+                        Title                   = "Selecione a Equipe Visitante"
+                        Grid.Column             = "1"
+                        TextColor               = "Black"
+                        TitleColor              = "Black"
+                        BackgroundColor         = "WhiteSmoke"
+                        FontSize                = "20"
+                        HorizontalTextAlignment = "Center"
+                        ItemsSource             = "{Binding ListaDeTimes}"
+                        SelectedItem            = "{Binding TimeSelecionado2}"                    
+                        IsVisible               = "{Binding PodeIniciarPartida}"
+                        ItemDisplayBinding      = "{Binding Nome}"/>
+
+                <StackLayout   Padding          = "5"
+                               WidthRequest     = "250"
+                               IsVisible        = "{Binding PodeIniciarPartida}">
+
+                    <Frame     BorderColor      = "White"
+                               CornerRadius     = "0" 
+                               Padding          = "22"
+                               BackgroundColor  = "White">
+
+                        <StackLayout     BindableLayout.ItemsSource = "{Binding TimeSelecionado2}">
+                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado2.ListaJogadores}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text              = "{Binding Nome, StringFormat='{0}'}"
+                                                   FontSize          = "20"
+                                                   HorizontalOptions = "CenterAndExpand"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <Button Text                             = "Preencher Equipe"
+                                    TextColor                        = "Gray"
+                                    BackgroundColor                  = "White"
+                                    FontSize                         = "12"
+                                    HorizontalOptions                = "Center"                                    
+                                    Clicked                          = "ButtonEditarTime"
+                                    CommandParameter                 = "_picker2"
+                                    IsVisible                        = "{Binding TimeSelecionado2.  IsTimeIncompleto}"/>
+
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <!--Botões de Iniciar e Registrar Partida-->
+                <Grid       Padding             = "25">
+                    <Button Text                = "Iniciar Partida" 
+                            Grid.Column         = "0" 
+                            HorizontalOptions   = "CenterAndExpand" 
+                            VerticalOptions     = "Start" 
+                            WidthRequest        = "250"
+                            BackgroundColor     = "WhiteSmoke"
+                            TextColor           = "Green"
+                            Clicked             = "ButtonPartidaIniciada"
+                            IsVisible           = "{Binding PodeIniciarPartida}"
+                            IsEnabled           = "{Binding PodeIniciarPartida}"
+                            FontSize            = "18"
+                            FontAttributes      = "Bold"
+                            FontFamily          = "Alef"
+                            BorderColor         = "LightGreen"
+                            CornerRadius        = "10"
+                            BorderWidth         = "4"/>
+
+                    <Button Text                = "Finalizar Partida" 
+                            Grid.Column         = "1" 
+                            HorizontalOptions   = "CenterAndExpand" 
+                            VerticalOptions     = "Start"
+                            WidthRequest        = "250" 
+                            BackgroundColor     = "WhiteSmoke" 
+                            TextColor           = "Green" 
+                            Clicked             = "FinalizarPartida"
+                            IsVisible           = "{Binding PodeRegistrarPartida}"
+                            IsEnabled           = "{Binding PodeRegistrarPartida}"
+                            FontSize            = "18"
+                            FontAttributes      = "Bold"
+                            FontFamily          = "Alef"
+                            BorderColor         = "LightGreen"
+                            CornerRadius        = "10"
+                            BorderWidth         = "4"/>
+
+                </Grid>
+
+                <!--Placar da Partida-->
+
+                <Label          Text              = "PLACAR"
+                                FontSize          = "20"                                
+                                HorizontalOptions = "Center"
+                                IsVisible         = "{Binding IsPartidaIniciada}"
+                                IsEnabled         = "{Binding IsPartidaIniciada}"/>
+
+                <Grid           ColumnDefinitions = "*,*"
+                                RowDefinitions    = "*,*"
+                                Padding           = "10"
+                                IsVisible         = "{Binding IsPartidaIniciada}"
+                                IsEnabled         = "{Binding IsPartidaIniciada}">
+                    <Label      Text              = "TIME 1"
+                                Grid.Row          = "1"
+                                Grid.Column       = "0"
+                                Padding           = "10"
+                                HorizontalOptions = "Center"/>
+                    <Label      Text              = "TIME 2"
+                                Grid.Row          = "1"
+                                Grid.Column       = "3"
+                                Padding           = "10"
+                                HorizontalOptions = "Center"/>
+                </Grid>
+                <BoxView        HeightRequest     = "1"
+                                BackgroundColor   = "Black"
+                                IsVisible         = "{Binding IsPartidaIniciada}"/>
+
+                <Grid           ColumnDefinitions = "*,*"
+                                IsVisible         = "{Binding IsPartidaIniciada}">
+                    <CarouselView   Grid.Column       = "0"
+                                ItemsLayout       = "VerticalList"
+                                CurrentItem       = "{Binding NumeroSelecionado1}">
+                        <CarouselView.ItemsSource>
+                            <x:Array Type = "{x:Type x:String}">
+                                <x:String>numero_0.png</x:String>
+                                <x:String>numero_1.png</x:String>
+                                <x:String>numero_2.png</x:String>
+                                <x:String>numero_3.png</x:String>
+                                <x:String>numero_4.png</x:String>
+                                <x:String>numero_5.png</x:String>
+                                <x:String>numero_6.png</x:String>
+                                <x:String>numero_7.png</x:String>
+                                <x:String>numero_8.png</x:String>
+                                <x:String>numero_9.png</x:String>
+                            </x:Array>
+                        </CarouselView.ItemsSource>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source        = "{Binding}"
+                                   VerticalOptions   = "Center"
+                                   HorizontalOptions = "Center"/>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+                    <Label    Grid.Column            = "1"
+                              Text                   = "X"
+                              FontSize               = "25"
+                              VerticalOptions        = "CenterAndExpand"/>
+                    <CarouselView Grid.Column            = "1"
+                              ItemsLayout            = "VerticalList"
+                              CurrentItem            = "{Binding NumeroSelecionado2}">
+                        <CarouselView.ItemsSource>
+                            <x:Array  Type = "{x:Type x:String}">
+                                <x:String>numero_0.png</x:String>
+                                <x:String>numero_1.png</x:String>
+                                <x:String>numero_2.png</x:String>
+                                <x:String>numero_3.png</x:String>
+                                <x:String>numero_4.png</x:String>
+                                <x:String>numero_5.png</x:String>
+                                <x:String>numero_6.png</x:String>
+                                <x:String>numero_7.png</x:String>
+                                <x:String>numero_8.png</x:String>
+                                <x:String>numero_9.png</x:String>
+                            </x:Array>
+                        </CarouselView.ItemsSource>
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source        = "{Binding}"
+                                   VerticalOptions   = "Center"
+                                   HorizontalOptions = "Center"/>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </Grid>
+
+                <!--Letreiro de Tempo de Partida-->
+
+                <BoxView          BackgroundColor   = "Black"
+                                  HeightRequest     = "1"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}"/>
+                <Label            Text              = "TEMPO DE PARTIDA"
+                                  FontSize          = "20"
+                                  Padding           = "20"
+                                  HorizontalOptions = "Center"
+                                  VerticalOptions   = "Center"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}"/>
+                <BoxView          BackgroundColor   = "Black"
+                                  HeightRequest     = "1"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}"/>
+                <Label                Text              = "{Binding Tempo}"
+                                  Padding           = "20"
+                                  FontSize          = "75"
+                                  HorizontalOptions = "Center"
+                                  VerticalOptions   = "Center"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}"/>
+                <BoxView          BackgroundColor   = "Black"
+                                  HeightRequest     = "1"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}"/>
+
+                <Grid             Padding           = "20"
+                                  IsVisible         = "{Binding IsPartidaIniciada}"
+                                  IsEnabled         = "{Binding IsPartidaIniciada}">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition    Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width ="*" />
+                        <ColumnDefinition Width ="*" />
+                        <ColumnDefinition Width ="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--Botões de Controle do Cronômetro-->
+                    <ImageButton Source            = "icon_play.png"
+                                 BorderColor       = "White"
+                                 BorderWidth       = "1"
+                                 BackgroundColor   = "White"
+                                 Grid.Column       = "0"
+                                 WidthRequest      = "50"                            
+                                 HorizontalOptions = "EndAndExpand"
+                                 Clicked           = "OnStartButtonClicked"
+                                 IsVisible         = "{Binding IsTimerPaused}"/>
+
+                    <ImageButton Source            = "icon_pause.png"
+                                 BorderColor       = "White"
+                                 BorderWidth       = "1"
+                                 BackgroundColor   = "White"
+                                 Grid.Column       = "0"
+                                 WidthRequest      = "50"                            
+                                 HorizontalOptions = "EndAndExpand"
+                                 Clicked           = "OnStartButtonClicked"
+                                 IsVisible         = "{Binding IsTimerRunning}"/>
+
+                    <ImageButton Source            = "icon_undo.png"
+                                 BorderColor       = "White"
+                                 BorderWidth       = "1"
+                                 BackgroundColor   = "White"
+                                 Grid.Column       = "2"
+                                 WidthRequest      = "50"
+                                 HorizontalOptions = "StartAndExpand"
+                                 Clicked           = "OnResetButtonClicked"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
