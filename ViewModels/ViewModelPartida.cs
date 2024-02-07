@@ -27,6 +27,10 @@ namespace Maui.SorteioJusto.ViewModels
         private List<Time>?    _timesSelecionados;
         [ObservableProperty]
         private List<Time>?    _listaDeTimesTemporaria;
+        [ObservableProperty]
+        private Time? _timeSelecionado1;
+        [ObservableProperty]
+        private Time? _timeSelecionado2;
 
         [ObservableProperty]
         private ObservableCollection<Partida> _listaDePartidas;
@@ -45,17 +49,14 @@ namespace Maui.SorteioJusto.ViewModels
 
         private string? _numeroSelecionado1;
         private string? _numeroSelecionado2;
-        private object? _timeSelecionado1;
-        private object? _timeSelecionado2;
 
         private bool _isTimerRunning       = false;
         private bool _isTimerPaused        = true;
         private bool _isTimeEditado        = false;
-        private bool _isTimeIncompleto     = false;
-        private bool _podeIniciarPartida   = true;
-        private bool _podeRegistrarPartida = false;
         private bool _isPartidaIniciada    = false;
         private bool _isPartidaRegistrada  = false;
+        private bool _podeIniciarPartida   = true;
+        private bool _podeRegistrarPartida = false;
 
         public int Placar1                   { get => _placar1;              set => _placar1              = value; }
         public int Placar2                   { get => _placar2;              set => _placar2              = value; }
@@ -86,23 +87,19 @@ namespace Maui.SorteioJusto.ViewModels
                 OnPropertyChanged(nameof(NumeroSelecionado2));
             }
         }
-        public object TimeSelecionado1     { get => _timeSelecionado1;     set => _timeSelecionado1     = value; }
-        public object TimeSelecionado2     { get => _timeSelecionado2;     set => _timeSelecionado2     = value; }
         public bool   IsTimerRunning       { get => _isTimerRunning;       set => _isTimerRunning       = value; }
         public bool   IsTimerPaused        { get => _isTimerPaused;        set => _isTimerPaused        = value; }
         public bool   IsTimeEditado        { get => _isTimeEditado;        set => _isTimeEditado        = value; }
-        public bool   IsTimeIncompleto     { get => _isTimeIncompleto;     set => _isTimeIncompleto     = value; }
         public bool   PodeIniciarPartida   { get => _podeIniciarPartida;   set => _podeIniciarPartida   = value; }
         public bool   PodeRegistrarPartida { get => _podeRegistrarPartida; set => _podeRegistrarPartida = value; }
         public bool   IsPartidaIniciada    { get => _isPartidaIniciada;    set => _isPartidaIniciada    = value; }
-        public bool   IsPartidaRegistrada  { get => _isPartidaRegistrada;  set => _isPartidaRegistrada  = value; }
+        public bool   IsPartidaRegistrada  { get => _isPartidaRegistrada;  set => _isPartidaRegistrada  = value; }       
 
         public ViewModelPartida()
         { }
 
         public ViewModelPartida(IRepositoryJogador rpJogador, IRepositoryTime rpTime, IRepositoryPartida rpPartida)
         {
-            //_timer         = Application.Current.Dispatcher.CreateTimer();
             _timer           = Shell.Current.Dispatcher.CreateTimer();
             _timer.Interval  = TimeSpan.FromSeconds(1);
             _timer.Tick     += OnTimerElapsed;
@@ -134,7 +131,7 @@ namespace Maui.SorteioJusto.ViewModels
             }
             else
             {
-                //System.Threading.Timer.Start();
+                Timer.Start();
                 IsPartidaIniciada = true;
                 IsTimerRunning    = true;
                 IsTimerPaused     = false;
@@ -143,7 +140,7 @@ namespace Maui.SorteioJusto.ViewModels
 
         public void PauseTimer()
         {
-            //System.Threading.Timer.Stop();
+            Timer.Stop();
             TempoPercorrido = Tempo;
             IsTimerRunning  = false;
             IsTimerPaused   = true;
@@ -151,7 +148,7 @@ namespace Maui.SorteioJusto.ViewModels
 
         public void ResumeTimer()
         {
-            //System.Threading.Timer.Start();
+            Timer.Start();
             IsTimerRunning = true;
             IsTimerPaused  = false;
         }
@@ -175,123 +172,118 @@ namespace Maui.SorteioJusto.ViewModels
         }
 
         //Métodos da Partida
-        public bool ValidacaoPartida()
+        public void ValidacaoPartida()
         {
             //Registrar os times selecionados nas CarouselView
             var timesSelecionados = new List<Time>();
 
-            foreach (var time in ListaDeTimes)
+            try
             {
-                if (TimeSelecionado1 == time)
+                foreach (var time in ListaDeTimes)
                 {
-                    timesSelecionados.Add(time);
+                    if (TimeSelecionado1 == time)
+                    {
+                        timesSelecionados.Add(time);
+                    }
+                    if (TimeSelecionado2 == time)
+                    {
+                        timesSelecionados.Add(time);
+                    }
                 }
-                if (TimeSelecionado2 == time)
+                TimesSelecionados = timesSelecionados;
+
+                if (TimesSelecionados.Count < 2)
                 {
-                    timesSelecionados.Add(time);
+                    PodeIniciarPartida = false;
+                    throw new Exception("Selecione duas equipes");
                 }
-            }
-            TimesSelecionados = timesSelecionados;
 
-            if (TimesSelecionados.Count < 2)
-            {
-                throw new Exception("Selecione duas equipes");
-            }
-
-            if (TimesSelecionados[0].Id == TimesSelecionados[1].Id)
-            {
-                throw new Exception("Selecione times diferentes");
-            }
-
-            //Caso de times incompletos
-            foreach (Time element in TimesSelecionados)
-            {
-                Time timeParaEdicao = new Time();
-
-                if (element.ListaJogadores.Count < element.TotalJogadores)
+                if (TimesSelecionados[0].Id == TimesSelecionados[1].Id)
                 {
-                    timeParaEdicao = element;
-                    throw new Exception("Um dos times está incompleto");
+                    PodeIniciarPartida = false;
+                    throw new Exception("Selecione times diferentes");
+                }
+
+                //Caso de times incompletos
+                foreach (Time element in TimesSelecionados)
+                {
+                    Time timeParaEdicao = new Time();
+
+                    //element.ListaJogadores.Count < element.TotalJogadores
+                    //element.IsTimeIncompleto || element.ListaJogadores.Count == 0                    
+                    if (element.IsTimeIncompleto)
+                    {
+                        timeParaEdicao     = element;
+                        PodeIniciarPartida = false;
+                        throw new Exception("Um dos times está incompleto");
+                    }
                 }
             }
-
-            return true;
+            catch(Exception ex)
+            {
+                Shell.Current.DisplayAlert("oi", ex.Message, "tchau");
+            }
         }
 
         public async void SalvarPartida()
         {
-            try
-            {
-                IsPartidaRegistrada = false;
+            IsPartidaRegistrada = false;
 
-                //Finaliza a Partida
-                if (ValidacaoPartida())
+            //Finaliza a Partida
+            ObjPartida                   = new Partida();
+            ObjPartida.Id                = 0;
+            ObjPartida.Data              = DateTime.Now;
+            ObjPartida.TimeCasa          = TimesSelecionados[0].Id;
+            ObjPartida.TimeVisitante     = TimesSelecionados[1].Id;
+            ObjPartida.TimeCasaGols      = Placar1;
+            ObjPartida.TimeVisitanteGols = Placar2;
+
+            if (Placar1 > Placar2)
+                ObjPartida.TimeVencedor = TimesSelecionados[0].Id;
+            else if (Placar2 > Placar1)
+                ObjPartida.TimeVencedor = TimesSelecionados[1].Id;
+            else
+                ObjPartida.TimeVencedor = 0;
+
+            //Criação de Id
+            if (ListaDePartidas.Count == 0)
+            {
+                ObjPartida.Id = 1;
+            }
+            else
+            {
+                int ultimoIdUtilizado = ListaDePartidas.Max(partida => partida.Id);
+                int novoId = ultimoIdUtilizado + 1;
+                ObjPartida.Id = novoId;
+            }
+
+            int i = 0;
+            //Adicionar jogadores à partida
+            while (i <= 1) //Devem haver 2 times selecionados sempre
+            {
+                foreach (Jogador element in TimesSelecionados[i].ListaJogadores)
                 {
-                    ObjPartida = new Partida();
+                    PartidaJogador partidaJogador = new PartidaJogador();
+                    partidaJogador.Partida = ObjPartida.Id;
+                    partidaJogador.Jogador = element.Id;
+                    partidaJogador.ObjJogador.Nome = element.Nome;
 
-                    ObjPartida.Id                = 0;
-                    ObjPartida.Data              = DateTime.Now;
-                    ObjPartida.TimeCasa          = TimesSelecionados[0].Id;
-                    ObjPartida.TimeVisitante     = TimesSelecionados[1].Id;
-                    ObjPartida.TimeCasaGols      = Placar1;
-                    ObjPartida.TimeVisitanteGols = Placar2;
+                    if (i == 0)
+                        partidaJogador.IsTimeCasa = 1;
 
-                    if (Placar1 > Placar2)
-                        ObjPartida.TimeVencedor = TimesSelecionados[0].Id;
-                    else if (Placar2 > Placar1)
-                        ObjPartida.TimeVencedor = TimesSelecionados[1].Id;
-                    else
-                        ObjPartida.TimeVencedor = 0;
-
-                    //Criação de Id
-                    if (ListaDePartidas.Count == 0)
-                    {
-                        ObjPartida.Id = 1;
-                    }
-                    else
-                    {
-                        int ultimoIdUtilizado = ListaDePartidas.Max(partida => partida.Id);
-                        int novoId = ultimoIdUtilizado + 1;
-                        ObjPartida.Id = novoId;
-                    }
-
-                    int i = 0;
-                    //Adicionar jogadores à partida
-                    while (i <= 1) //Devem haver 2 times selecionados sempre
-                    {
-                        foreach (Jogador element in TimesSelecionados[i].ListaJogadores)
-                        {
-                            PartidaJogador partidaJogador  = new PartidaJogador();
-                            partidaJogador.Partida         = ObjPartida.Id;
-                            partidaJogador.Jogador         = element.Id;
-                            partidaJogador.ObjJogador.Nome = element.Nome;
-
-                            if (i == 0)
-                                partidaJogador.IsTimeCasa = 1;
-
-                            //Salvar tabela de PartidaJogador no Banco
-                            await _rpPartida.AddPartidaJogadorAsync(partidaJogador);
-
-                            //Adiciona Jogador à Partida
-                            //ObjPartida.ListaPartidaJogador.Add(objPartidaJogador);
-                        }
-                        i++;
-                    }
-                    i = 0;
-
-                    DataPartidaEncerrada = DateTime.Now;
-                    ListaDePartidas.Add(ObjPartida);
-
-                    //Salvar ObjPartida no Banco
-                    await _rpPartida.AddPartidaAsync(ObjPartida);
-
-                    IsPartidaRegistrada = true;
+                    //Salvar tabela de PartidaJogador no Banco
+                    await _rpPartida.AddPartidaJogadorAsync(partidaJogador);
                 }
+                i++;
             }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Erro", ex.Message, "Fechar");
-            }
+            i = 0;
+
+            DataPartidaEncerrada = DateTime.Now;
+            ListaDePartidas.Add(ObjPartida);
+
+            //Salvar ObjPartida no Banco
+            await _rpPartida.AddPartidaAsync(ObjPartida);
+            IsPartidaRegistrada = true;
         }
 
         public async void EditarTime(Time timeParaEditar)
@@ -310,7 +302,10 @@ namespace Maui.SorteioJusto.ViewModels
 
                 if (_podeEditar)
                 {
-                    List<Jogador> jogadoresAdicionados = new List<Jogador>();
+                    List<Jogador>     jogadoresAdicionados = new List<Jogador>();
+                    List<TimeJogador> listaDeTimeJogador   = new List<TimeJogador>();
+
+                    listaDeTimeJogador = await _rpTime.GetTimeJogadoresAsync();
 
                     foreach (Time element in ListaDeTimes)
                     {
@@ -326,105 +321,58 @@ namespace Maui.SorteioJusto.ViewModels
 
                                     //Remove do time origem
                                     element.ListaJogadores.RemoveAll(j => j.Id == jogador.Id);
+
+                                    //Exclui a relação TimeJogador
+                                    foreach(TimeJogador tj in listaDeTimeJogador)
+                                    {
+                                        if(tj.Time == element.Id && tj.Jogador == jogador.Id)
+                                            await _rpTime.DeleteTimeJogadorAsync(tj.Id);
+                                    }
+
+                                    //Atualiza o time no banco
+                                    await _rpTime.UpdateTimeAsync(element);
+
                                     jogadorTemp = jogadorExistente;
                                     jogadoresAdicionados.Add(jogadorTemp);
                                 }
                             }
                         }
-                    }
+                    }                    
 
                     foreach (Time element in ListaDeTimes)
                     {
                         //Após retirar os jogadores, adicinar todos ao time destino
                         if (element.Id == timeParaEditar.Id)
                         {
-                            element.ListaJogadores.AddRange(jogadoresAdicionados);
-                        }
+                            List<Jogador> jogadoresOriginais = new List<Jogador>(element.ListaJogadores);
+
+                            element.ListaJogadores.AddRange(jogadoresAdicionados);                            
+                            //Atualiza o time no banco
+                            await _rpTime.UpdateTimeAsync(element);
+
+                            //Adiciona nova relação TimeJogador                            
+                            foreach (Jogador jogador in element.ListaJogadores)
+                            {
+                                //Não adicionar relação que já existia
+                                if (!jogadoresOriginais.Contains(jogador))
+                                {
+                                    TimeJogador tj = new TimeJogador();
+                                    tj.Time = element.Id;
+                                    tj.Jogador = jogador.Id;
+                                    await _rpTime.AddTimeJogadorAsync(tj);
+                                }
+                            }
+                        }                                 
                     }
 
-                    //Após esse momento, teremos uma lista de times atualizada
-                    //Então, apagar a Lista antiga e Salvar a nova no Endpoint
-
-                    //Apaga a lista de times antiga na Base de Dados
-                    //IRestResponse responseDelete = CommonApi.DoDeleteWithJson($"{url}/teams/delete", "");
-
-                    //foreach (ModelTime modelTime in ListaDeTimes)
-                    //{
-                    //    //Adiciona todos os times novos no Endpoint
-
-                    //    //Salvar timeGen em JSON
-                    //    var TimeAdd = JsonConvert.SerializeObject(modelTime);
-                    //    //Salvar timeGen no Endpoint
-                    //    IRestResponse response = CommonApi.DoPostWithJson($"{url}/teams/new", TimeAdd);
-
-                    //}
-
                     IsTimeEditado = true;
+                    ListaDeAdicao.Clear();
                 }
             }
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Erro", ex.Message, "Fechar");
             }
-        }
-
-        //public List<Jogador> CarregarListaJogadores()
-        //{
-        //    List<Time>    times     = new List<Time>();
-        //    List<Jogador> jogadores = new List<Jogador>();
-
-        //    if (ListaDeJogadores == null)
-        //    {
-        //        ListaDeTimes = CarregarListaTimes();
-
-        //        foreach (Time element in ListaDeTimes)
-        //        {
-        //            foreach (Jogador jogador in element.ListaJogadores)
-        //            {
-        //                Jogador player = new Jogador();
-        //                player         = jogador;
-        //                jogadores.Add(player);
-        //            }
-        //        }
-        //        return jogadores;
-        //    }
-
-        //    return ListaDeJogadores;
-        //}
-
-        public List<Jogador> CarregarListaEditar(Time timeParaEdicao)
-        {
-            List<Jogador>              jogadores = new List<Jogador>();
-            ObservableCollection<Time> times     = new ObservableCollection<Time>();
-
-            if (timeParaEdicao != null)
-                // Adicionar todos os jogadores da lista de times na lista jogadores
-                foreach (Time element in ListaDeTimes)
-                {
-                    // Verifica se o time é igual ao time em edição
-                    if (element.Id != timeParaEdicao.Id)
-                    {
-                        foreach (Jogador jogador in element.ListaJogadores)
-                        {
-                            Jogador player = new Jogador();
-                            player         = jogador;
-                            jogadores.Add(player);
-                        }
-                    }
-                }
-            ListaEditar.Clear();
-
-            foreach (var jogador in jogadores)
-            {
-                ListaEditar.Add(jogador);
-            }
-
-            //string jsonedicao = JsonConvert.SerializeObject(jogadores);
-            //// Salva a string JSON em um arquivo
-            //string filePath2 = Path.Combine(FileSystem.AppDataDirectory, "listaedicao.json");
-            //File.WriteAllText(filePath2, jsonedicao);
-
-            return jogadores;
         }
 
         public async void CarregarListaTimes()
@@ -477,10 +425,65 @@ namespace Maui.SorteioJusto.ViewModels
                 ListaDePartidas = new ObservableCollection<Partida>(listaDePartidas);
         }
 
-        public ObservableCollection<Jogador> AtualizarListaEditar()
+        public List<Jogador> CarregarListaEditar(Time timeParaEdicao)
         {
-            return new ObservableCollection<Jogador>();
-        }        
+            List<Jogador> jogadores = new List<Jogador>();
+            ObservableCollection<Time> times = new ObservableCollection<Time>();
+
+            if (timeParaEdicao != null)
+                // Adicionar todos os jogadores da lista de times na lista jogadores
+                foreach (Time element in ListaDeTimes)
+                {
+                    // Verifica se o time é igual ao time em edição
+                    if (element.Id != timeParaEdicao.Id)
+                    {
+                        foreach (Jogador jogador in element.ListaJogadores)
+                        {
+                            Jogador player = new Jogador();
+                            player = jogador;
+                            jogadores.Add(player);
+                        }
+                    }
+                }
+            ListaEditar.Clear();
+
+            foreach (var jogador in jogadores)
+            {
+                ListaEditar.Add(jogador);
+            }
+
+            //string jsonedicao = JsonConvert.SerializeObject(jogadores);
+            //// Salva a string JSON em um arquivo
+            //string filePath2 = Path.Combine(FileSystem.AppDataDirectory, "listaedicao.json");
+            //File.WriteAllText(filePath2, jsonedicao);
+
+            return jogadores;
+        }
+
+        //public List<Jogador> CarregarListaJogadores()
+        //{
+        //    List<Time>    times     = new List<Time>();
+        //    List<Jogador> jogadores = new List<Jogador>();
+
+        //    if (ListaDeJogadores == null)
+        //    {
+        //        ListaDeTimes = CarregarListaTimes();
+
+        //        foreach (Time element in ListaDeTimes)
+        //        {
+        //            foreach (Jogador jogador in element.ListaJogadores)
+        //            {
+        //                Jogador player = new Jogador();
+        //                player         = jogador;
+        //                jogadores.Add(player);
+        //            }
+        //        }
+        //        return jogadores;
+        //    }
+
+        //    return ListaDeJogadores;
+        //}
+
     }
 }
 

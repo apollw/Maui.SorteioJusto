@@ -2,13 +2,16 @@
 using Maui.SorteioJusto.Models;
 using Maui.SorteioJusto.Services.Interfaces;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace Maui.SorteioJusto.ViewModels
 {
     public partial class ViewModelJogador : ObservableObject
     {
         //Acesso aos Dados
+        private readonly IRepositoryTime    _rpTime;
         private readonly IRepositoryJogador _rpJogador;
+        private readonly IRepositoryPartida _rpPartida;
 
         //Variáveis 
         private bool _isCadastrado;
@@ -19,6 +22,8 @@ namespace Maui.SorteioJusto.ViewModels
         [ObservableProperty]
         private Jogador _objJogador;
         [ObservableProperty]
+        private Jogador _objJogadorOriginal;
+        [ObservableProperty]
         private ObservableCollection<Jogador> _listaDeJogadores;
 
         public bool IsCadastrado { get => _isCadastrado; set => _isCadastrado = value; }
@@ -28,33 +33,17 @@ namespace Maui.SorteioJusto.ViewModels
             
         }
 
-        public ViewModelJogador(IRepositoryJogador rpJogador)
+        public ViewModelJogador(IRepositoryJogador rpJogador, IRepositoryTime rpTime, IRepositoryPartida rpPartida)
         {
-            _rpJogador       = rpJogador;
-            ObjJogador       = new Jogador();
-            CarregarLista();
-        }
+            _rpJogador = rpJogador;
+            _rpTime    = rpTime;
+            _rpPartida = rpPartida;
 
-        //private int GerarNovoId(int id)
-        //{
-        //    if (id != 0)
-        //    {
-        //        return id;
-        //    }
-        //    else
-        //    {
-        //        if (ListaDeJogadores.Count == 0)
-        //        {
-        //            return 1;
-        //        }
-        //        else
-        //        {
-        //            int ultimoIdUtilizado = ListaDeJogadores.Max(jogador => jogador.Id);
-        //            int novoId = ultimoIdUtilizado + 1;
-        //            return novoId;
-        //        }
-        //    }
-        //}
+            ObjJogador       = new Jogador();
+            ListaDeJogadores = new ObservableCollection<Jogador>();
+
+            CarregarLista();
+        }        
 
         private async Task<bool> VerificarJogador(Jogador jogador) 
         {
@@ -75,11 +64,13 @@ namespace Maui.SorteioJusto.ViewModels
                     throw new Exception("Telefone não informado");
                 }
 
-                if (listaTempJogadores.Any(element => element.Telefone == jogador.Telefone 
-                    && jogador.Id != element.Id))
+                foreach (Jogador element in listaTempJogadores)
                 {
-                    result = false;
-                    throw new Exception("Telefone já registrado!");
+                    if (element.Telefone == jogador.Telefone && jogador.Id != element.Id)
+                    {
+                        result = false;
+                        throw new Exception("Telefone já registrado!");
+                    }
                 }
             }
             catch (Exception ex)
@@ -90,16 +81,11 @@ namespace Maui.SorteioJusto.ViewModels
             return result;
         }
 
-        public async void SalvarJogador(Jogador jogador)
+        public async void SalvarJogador(Jogador jogadorNovo)
         {
+            ObjJogador        = new Jogador(jogadorNovo);
             bool isEdicao     = false;
-            bool isVerificado = await VerificarJogador(jogador);
-
-            //Salva ObjJogador
-            if (isVerificado)
-            {
-                ObjJogador = jogador;
-            }
+            bool isVerificado = await VerificarJogador(ObjJogador);
 
             //Verifica se é Edição
             foreach (Jogador element in ListaDeJogadores)
@@ -113,25 +99,65 @@ namespace Maui.SorteioJusto.ViewModels
                 }
             }
 
+            //Salva ObjJogador
+            if (isVerificado&&!isEdicao)
+            {
+                //Criação de Id
+                if (ListaDeJogadores.Count == 0)
+                    ObjJogador.Id = 1;
+                else
+                {
+                    int ultimoIdUtilizado = ListaDeJogadores.Max(time => time.Id);
+                    int novoId = ultimoIdUtilizado + 1;
+                    ObjJogador.Id = novoId;
+                }
+            }
+
             //Salva na memória se não existir ainda
             if (isVerificado && !isEdicao)
             {
                 IsCadastrado = true;
                 ListaDeJogadores.Add(ObjJogador);
-                await _rpJogador.AddJogadorAsync(jogador);
+                await _rpJogador.AddJogadorAsync(ObjJogador);
             }
 
             //Salva o jogador editado
             if (isVerificado && isEdicao)
             {
                 IsCadastrado = true;
-                await _rpJogador.UpdateJogadorAsync(jogador);
+                await _rpJogador.UpdateJogadorAsync(ObjJogador);
             }
         }
 
-        public void ExcluirJogador(Jogador jogador)
+        public async void ExcluirJogador(Jogador jogador)
         {
-            _rpJogador.DeleteJogadorAsync(jogador.Id);
+            await ExcluirJogadorVinculado(jogador.Id);
+            await _rpJogador.DeleteJogadorAsync(jogador.Id);
+        }
+
+        private async Task ExcluirJogadorVinculado(int jogadorId)
+        {
+            //Ao excluir jogador, excluir tanto da tabela TimeJogador quanto da PartidaJogador
+            List<TimeJogador>    listaTimeJogador    = await _rpTime.GetTimeJogadoresAsync();
+            List<PartidaJogador> listaPartidaJogador = await _rpPartida.GetPartidaJogadoresAsync();
+
+            foreach (TimeJogador element in listaTimeJogador)
+            {
+                if (element.Jogador == jogadorId)
+                {
+                    await _rpTime.DeleteTimeJogadorAsync(element.Id);
+                    break;
+                }
+            }
+
+            foreach (PartidaJogador element in listaPartidaJogador)
+            {
+                if (element.Jogador == jogadorId)
+                {
+                    await _rpPartida.DeletePartidaJogadorAsync(element.Id);
+                    break;
+                }
+            }
         }
 
         public async void CarregarLista()

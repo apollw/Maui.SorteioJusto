@@ -13,7 +13,23 @@ namespace Maui.SorteioJusto.Models
         private double _classificacao  = 0;
         private int    _golsNaCarreira = 0;
 
-        [PrimaryKey, AutoIncrement, NotNull]
+        public Jogador()
+        {
+            
+        }
+
+        public Jogador(Jogador jogador)
+        {
+            this.Id             = jogador.Id;
+            this.Nome           = jogador.Nome;
+            this.Telefone       = jogador.Telefone;
+            this.Posicao        = jogador.Posicao;
+            this.Status         = jogador.Status;
+            this.Classificacao  = jogador.Classificacao;
+            this.GolsNaCarreira = jogador.GolsNaCarreira;
+        }
+
+        [PrimaryKey, NotNull]
         public int Id { get => _id; set => _id = value; }
         [MaxLength(20), NotNull]
         public string Nome { get => _nome; set => _nome = value; }

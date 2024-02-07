@@ -1,3 +1,4 @@
+using Maui.SorteioJusto.Models;
 using Maui.SorteioJusto.Services.Interfaces;
 using Maui.SorteioJusto.ViewModels;
 
@@ -29,5 +30,26 @@ public partial class PageTime : ContentPage
     {
         //await Navigation.PushAsync(new PageTimeJogadores(_rpJogador,_rpTime));
         await Navigation.PushAsync(new PageTimeJogadores(VMTime));
+    }
+
+    private async void Button_ExcluirTimes(object sender, EventArgs e)
+    {
+        string message = "Deseja limpar a lista?";
+        bool confirmar = await DisplayAlert("Aviso", message, "Sim", "Não");
+
+        if (confirmar)
+        {
+            List<Time> listaParaExclusao = new List<Time>(VMTime.ListaDeTimes);
+            List<TimeJogador> listaTimeJogadorParaExclusao = new List<TimeJogador>();
+
+            //Exclui todos os times da lista
+            VMTime.ListaDeTimes.Clear();
+            await _rpTime.DeleteListaDeTimesAsync(listaParaExclusao);
+
+            //Exclui todas as elações com jogadores
+            listaTimeJogadorParaExclusao = await _rpTime.GetTimeJogadoresAsync();
+            await _rpTime.DeleteListaDeTimeJogadorAsync(listaTimeJogadorParaExclusao);
+        }        
+        
     }
 }

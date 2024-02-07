@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns   = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class = "Maui.SorteioJusto.Pages.PageTimeEdicao"
+             Title   = "Editar Equipe">
+    
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+            <Label
+                Text = "Selecione os Jogadores para completar a equipe"
+                HorizontalTextAlignment = "Center" 
+                FontSize                = "20"/>
+            
+            <CollectionView x:Name = "_collectionView" ItemsSource = "{Binding ListaEditar}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <Grid ColumnDefinitions="*,*">
+                                <Label
+                                    Text        = "{Binding Nome}"
+                                    TextColor   = "Red"
+                                    Grid.Column = "0"/>
+                                <CheckBox
+                                    x:Name            = "_checkBox"
+                                    BindingContext    = "{Binding .}"
+                                    CheckedChanged    = "OnCheckBoxCheckedChanged"
+                                    Color             = "Green" 
+                                    Grid.Column       = "1" 
+                                    HorizontalOptions = "End"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Button
+                x:Name            = "_btnSalvarTime"
+                Text              = "Salvar Time"
+                WidthRequest      = "150"
+                BackgroundColor   = "WhiteSmoke"
+                TextColor         = "DarkSlateGray"
+                HorizontalOptions = "End"
+                VerticalOptions   = "Start"
+                Clicked           = "Button_SalvarTime"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

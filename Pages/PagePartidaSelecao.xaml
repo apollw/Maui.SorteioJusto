@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns   = "http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class = "Maui.SorteioJusto.Pages.PagePartidaSelecao"
+             Title   = "Registro de Partida">
+
+    <ScrollView>
+        <Grid RowDefinitions="*,3">
+            <VerticalStackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+                
+                <Picker x:Name                  = "_picker1"
+                        Grid.Column             = "0"
+                        Title                   = "Escolha o Time da Casa"
+                        TextColor               = "Black" 
+                        TitleColor              = "Black"
+                        BackgroundColor         = "WhiteSmoke"
+                        FontSize                = "20"
+                        HorizontalTextAlignment = "Center"
+                        ItemsSource             = "{Binding ListaDeTimes}"
+                        SelectedItem            = "{Binding TimeSelecionado1}"                    
+                        ItemDisplayBinding      = "{Binding Nome}"
+                        WidthRequest            = "300"/>
+                
+                <StackLayout Padding            = "5" 
+                             WidthRequest       = "250">
+
+                    <Frame   BorderColor        = "Red"
+                             CornerRadius       = "0" 
+                             Padding            = "22" 
+                             BackgroundColor    = "White">
+
+                            <StackLayout>
+                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado1.ListaJogadores}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text              = "{Binding Nome}"
+                                                   FontSize          = "15"
+                                                   HorizontalOptions = "CenterAndExpand"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <Button Text                = "Editar"
+                                    TextColor           = "Gray"
+                                    BackgroundColor     = "White"
+                                    FontSize            = "15"
+                                    FontAttributes      = "Bold"
+                                    HorizontalOptions   = "End"
+                                    Clicked             = "Button_EditarTime"
+                                    CommandParameter    = "_picker1"
+                                    IsVisible           = "{Binding TimeSelecionado1.IsTimeIncompleto}"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <Picker x:Name                  = "_picker2"
+                        Grid.Column             = "1"
+                        Title                   = "Escolha o Time Visitante"
+                        TextColor               = "Black"
+                        TitleColor              = "Black"
+                        BackgroundColor         = "WhiteSmoke"
+                        FontSize                = "20"
+                        HorizontalTextAlignment = "Center"
+                        ItemsSource             = "{Binding ListaDeTimes}"
+                        SelectedItem            = "{Binding TimeSelecionado2}"                    
+                        ItemDisplayBinding      = "{Binding Nome}"
+                        WidthRequest            = "300"/>
+
+                <StackLayout   Padding          = "5"
+                               WidthRequest     = "250">
+
+                    <Frame     BorderColor      = "Red"
+                               CornerRadius     = "0" 
+                               Padding          = "22"
+                               BackgroundColor  = "White">
+
+                        <StackLayout>
+                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado2.ListaJogadores}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text              = "{Binding Nome}"
+                                                   FontSize          = "15"
+                                                   HorizontalOptions = "CenterAndExpand"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <Button Text              = "Editar"
+                                    TextColor         = "Gray"
+                                    BackgroundColor   = "White"
+                                    FontSize          = "15"
+                                    FontAttributes    = "Bold"
+                                    HorizontalOptions = "End"                                    
+                                    Clicked           = "Button_EditarTime"
+                                    CommandParameter  = "_picker2"
+                                    IsVisible         = "{Binding TimeSelecionado2.IsTimeIncompleto}"/>
+
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <!--Botões de Iniciar e Registrar Partida-->
+                <Grid       Padding             = "25">
+                    <Button Text                = "Iniciar Partida" 
+                            Grid.Column         = "0" 
+                            HorizontalOptions   = "CenterAndExpand" 
+                            VerticalOptions     = "Start" 
+                            WidthRequest        = "250"
+                            BackgroundColor     = "WhiteSmoke"
+                            TextColor           = "Green"
+                            FontSize            = "18"
+                            FontAttributes      = "Bold"
+                            FontFamily          = "Alef"
+                            BorderColor         = "LightGreen"
+                            CornerRadius        = "10"
+                            BorderWidth         = "4"
+                            Clicked             = "Button_IniciarPartida"/>
+                </Grid>
+            </VerticalStackLayout>
+            
+        </Grid>
+    </ScrollView>
+</ContentPage>
+

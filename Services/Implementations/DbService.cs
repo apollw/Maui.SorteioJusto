@@ -18,7 +18,6 @@ namespace Maui.SorteioJusto.Services.Implementations
 
             if (_dbConnection == null)
             {
-
                 // Caminho para o desktop
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -31,10 +30,10 @@ namespace Maui.SorteioJusto.Services.Implementations
                 string dbFileName = "SorteioJustoDB.db3";
 
                 // Caminho completo para o arquivo do banco de dados no desktop
-                //string dbPath = Path.Combine(localDevicePath, dbFileName);
+                string dbPath = Path.Combine(localDevicePath, dbFileName);
 
-                //// Caminho completo para o arquivo do banco de dados no desktop
-                string dbPath = Path.Combine(desktopPath, dbFileName);                
+                // Caminho completo para o arquivo do banco de dados no desktop
+                //string dbPath = Path.Combine(desktopPath, dbFileName);                
 
                 // Cria uma nova conexão após excluir o banco de dados antigo
                 _dbConnection = new SQLiteAsyncConnection(dbPath);

@@ -1,10 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Maui.SorteioJusto.Models;
-using Maui.SorteioJusto.Services.Implementations;
 using Maui.SorteioJusto.Services.Interfaces;
-using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace Maui.SorteioJusto.ViewModels
 {
@@ -13,12 +10,14 @@ namespace Maui.SorteioJusto.ViewModels
         private readonly IRepositoryTime    _rpTime;
         private readonly IRepositoryJogador _rpJogador;
 
-        private bool _islistaCarregada    = false;
-        private bool _isCriacaoFinalizada = false;
-        private bool _isAptoParaSorteio   = false;
-        private int  _tamanhoDaEquipe     = 2;
-        private int  _quantidadeDeTimes   = 0;
+        private bool _islistaCarregada         = false;
+        private bool _isCriacaoFinalizada      = false;
+        private bool _isAptoParaSorteio        = false;
+        private int  _tamanhoDaEquipe          = 2;
+        private int  _quantidadeDeTimes        = 0;
 
+        [ObservableProperty]
+        private int _qtdJogadoresSelecionados;
         [ObservableProperty]
         private Time          _objTime;
         [ObservableProperty]
@@ -30,8 +29,6 @@ namespace Maui.SorteioJusto.ViewModels
         private List<Jogador> _listaDeTroca1;
         [ObservableProperty]
         private List<Jogador> _listaDeTroca2;
-        [ObservableProperty]
-        private List<Jogador> _listaGeralDeJogadores;
 
         [ObservableProperty]
         private ObservableCollection<Time>    _listaDeTimes;
@@ -49,14 +46,14 @@ namespace Maui.SorteioJusto.ViewModels
 
         public ViewModelTime(IRepositoryJogador rpJogador, IRepositoryTime rpTime)
         {
-            ObjTime                   = new Time();
-            ObjJogador                = new Jogador();
-            ListaDeTroca1             = new List<Jogador>();
-            ListaDeTroca2             = new List<Jogador>();
-            ListaDeJogadoresPresentes = new List<Jogador>();
-            ListaDeTimes              = new ObservableCollection<Time>();
-            ListaDeJogadores          = new ObservableCollection<Jogador>();
-
+            ObjTime                      = new Time();
+            ObjJogador                   = new Jogador();
+            ListaDeTimes                 = new ObservableCollection<Time>();
+            ListaDeJogadores             = new ObservableCollection<Jogador>();
+            ListaDeTroca1                = new List<Jogador>();
+            ListaDeTroca2                = new List<Jogador>();
+            ListaDeJogadoresPresentes    = new List<Jogador>();
+            
             _rpJogador = rpJogador;
             _rpTime    = rpTime;
         }
@@ -279,5 +276,10 @@ namespace Maui.SorteioJusto.ViewModels
             }
         }
 
+        public void AtualizarQtdDeJogadoresSelecionados()
+        {
+            // Contagem inicial de jogadores selecionados (status 1)
+            QtdJogadoresSelecionados = ListaDeJogadores.Count(jogador => jogador.Status == 1);
+        }
     }
 }

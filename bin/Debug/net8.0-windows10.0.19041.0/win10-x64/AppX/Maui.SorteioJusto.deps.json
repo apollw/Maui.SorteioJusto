@@ -17,6 +17,7 @@
           "SQLitePCLRaw.core": "2.1.7",
           "SQLitePCLRaw.provider.dynamic_cdecl": "2.1.7",
           "SQLitePCLRaw.provider.e_sqlite3": "2.1.7",
+          "Syncfusion.Maui.Expander": "24.2.4",
           "sqlite-net-pcl": "1.8.116",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.31"
         },
@@ -514,6 +515,36 @@
           }
         }
       },
+      "Syncfusion.Licensing/24.2.4": {
+        "runtime": {
+          "lib/net8.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "24.2.4.0",
+            "fileVersion": "24.2.4.0"
+          }
+        }
+      },
+      "Syncfusion.Maui.Core/24.2.4": {
+        "dependencies": {
+          "Syncfusion.Licensing": "24.2.4"
+        },
+        "runtime": {
+          "lib/net8.0-windows10.0.19041.0/Syncfusion.Maui.Core.dll": {
+            "assemblyVersion": "24.2.4.0",
+            "fileVersion": "24.2.4.0"
+          }
+        }
+      },
+      "Syncfusion.Maui.Expander/24.2.4": {
+        "dependencies": {
+          "Syncfusion.Maui.Core": "24.2.4"
+        },
+        "runtime": {
+          "lib/net8.0-windows10.0.19041.0/Syncfusion.Maui.Expander.dll": {
+            "assemblyVersion": "24.2.4.0",
+            "fileVersion": "24.2.4.0"
+          }
+        }
+      },
       "System.Memory/4.5.3": {}
     }
   },
@@ -730,6 +761,27 @@
       "sha512": "sha512-wxZU4CJQbPsQ9l8j4eiB5AW8IZt7PvHC+A1qByO1Rg47CrI0NZNpxV0N8gUdpxexocAwdjUrQEWOFVMAuNbLqw==",
       "path": "sqlitepclraw.provider.e_sqlite3/2.1.7",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.7.nupkg.sha512"
+    },
+    "Syncfusion.Licensing/24.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c31wxWQfgVdlbbo3mUPkwfqTqsDw8Q//ph2syad8cOZOz0INaszZ+uiIXow2fG/srx7wsiqlhrjLnP1QoOzQIA==",
+      "path": "syncfusion.licensing/24.2.4",
+      "hashPath": "syncfusion.licensing.24.2.4.nupkg.sha512"
+    },
+    "Syncfusion.Maui.Core/24.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-f+mz4yu6iM46AZDgLw1oKdApjrS5g2VXMYG//fMflUOxfKoOCJpFpqRbzOlL4NLI3FOTClHJVLfidxI3SOKbcg==",
+      "path": "syncfusion.maui.core/24.2.4",
+      "hashPath": "syncfusion.maui.core.24.2.4.nupkg.sha512"
+    },
+    "Syncfusion.Maui.Expander/24.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FCtQWlO1IXznRA1wfk8d+Nxshwkyb5PH0HqI7cmas/fpX5Wdo1uf3s6KuSsKjiKFYqzLCdz8g2LT7b4PY236ug==",
+      "path": "syncfusion.maui.expander/24.2.4",
+      "hashPath": "syncfusion.maui.expander.24.2.4.nupkg.sha512"
     },
     "System.Memory/4.5.3": {
       "type": "package",

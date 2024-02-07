@@ -28,9 +28,8 @@ public partial class PagePartida : ContentPage
         VMPartida.CarregarListaPartida();
     }
 
-
     private async void Button_AdicionarPartida(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new PagePartidaRegistro(VMPartida));
+        await Navigation.PushAsync(new PagePartidaSelecao(VMPartida));
     }
 }

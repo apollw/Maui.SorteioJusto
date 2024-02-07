@@ -43,11 +43,11 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
+		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />-->
+    <MauiSplashScreen Include="Resources\Splash\splashscreen.png" Color="#00A651" />
+    
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -63,7 +63,6 @@
 	  <None Remove="Resources\Images\icon_check.png" />
 	  <None Remove="Resources\Images\icon_edit.png" />
 	  <None Remove="Resources\Images\icon_forward.png" />
-	  <None Remove="Resources\Images\icon_jogador.png" />
 	  <None Remove="Resources\Images\icon_partida.png" />
 	  <None Remove="Resources\Images\icon_pause.png" />
 	  <None Remove="Resources\Images\icon_placar.png" />
@@ -71,7 +70,20 @@
 	  <None Remove="Resources\Images\icon_swipe.png" />
 	  <None Remove="Resources\Images\icon_time.png" />
 	  <None Remove="Resources\Images\icon_undo.png" />
-	  <None Remove="Resources\Images\imagem_background.png" />
+	  <None Remove="Resources\Images\imagem_background_01.png" />
+	  <None Remove="Resources\Images\imagem_background_02.jpg" />
+	  <None Remove="Resources\Images\imagem_background_03.jpg" />
+	  <None Remove="Resources\Images\imagem_background_04.jpg" />
+	  <None Remove="Resources\Images\imagem_background_05.jpg" />
+	  <None Remove="Resources\Images\imagem_background_06.jpg" />
+	  <None Remove="Resources\Images\imagem_background_07.jpg" />
+	  <None Remove="Resources\Images\imagem_background_08.jpg" />
+	  <None Remove="Resources\Images\imagem_background_09.jpg" />
+	  <None Remove="Resources\Images\imagem_background_10.jpg" />
+	  <None Remove="Resources\Images\imagem_background_11.jpg" />
+	  <None Remove="Resources\Images\imagem_background_12.jpg" />
+	  <None Remove="Resources\Images\imagem_background_13.jpg" />
+	  <None Remove="Resources\Images\imagem_background_14.jpg" />
 	  <None Remove="Resources\Images\imagem_cadastro.png" />
 	  <None Remove="Resources\Images\imagem_partida.png" />
 	  <None Remove="Resources\Images\imagem_sorteio.png" />
@@ -97,6 +109,13 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.7" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.7" />
+		<PackageReference Include="Syncfusion.Maui.Expander" Version="24.2.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\PagePartidaSelecao.xaml.cs">
+	    <DependentUpon>PagePartidaSelecao.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -112,13 +131,16 @@
 	  <MauiXaml Update="Pages\PagePartidaRegistro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\PagePartidaSelecao.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\PageTime.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\PageTimeJogadores.xaml">
+	  <MauiXaml Update="Pages\PageTimeEdicao.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\PageTimeLista.xaml">
+	  <MauiXaml Update="Pages\PageTimeJogadores.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\PageTimeSorteio.xaml">

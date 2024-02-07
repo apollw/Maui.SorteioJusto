@@ -1,9 +1,9 @@
-﻿
-using Maui.SorteioJusto.Pages;
+﻿using Maui.SorteioJusto.Pages;
 using Maui.SorteioJusto.Services.Implementations;
 using Maui.SorteioJusto.Services.Interfaces;
 using Maui.SorteioJusto.ViewModels;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Maui.SorteioJusto
 {
@@ -23,24 +23,30 @@ namespace Maui.SorteioJusto
             builder.Logging.AddDebug();
 #endif
             //Services
-            builder.Services.AddSingleton<IDbService,DbService>();
-            builder.Services.AddScoped<IRepositoryTime   , RepositoryTime>();
-            builder.Services.AddScoped<IRepositoryJogador, RepositoryJogador>();
-            builder.Services.AddScoped<IRepositoryPartida, RepositoryPartida>();
+            builder.Services.AddSingleton <IDbService        , DbService>();
+            builder.Services.AddScoped    <IRepositoryTime   , RepositoryTime>();
+            builder.Services.AddScoped    <IRepositoryJogador, RepositoryJogador>();
+            builder.Services.AddScoped    <IRepositoryPartida, RepositoryPartida>();
 
             //Pages
-            builder.Services.AddTransient<PageTime>();
             builder.Services.AddTransient<PageJogador>();
-            builder.Services.AddTransient<PagePartida>();
-            builder.Services.AddTransient<PageTimeLista>();
-            builder.Services.AddTransient<PageTimeSorteio>();
-            builder.Services.AddTransient<PageTimeJogadores>();
             builder.Services.AddTransient<PageJogadorCadastro>();
 
+            builder.Services.AddTransient<PagePartida>();
+            builder.Services.AddTransient<PagePartidaSelecao>();
+            builder.Services.AddTransient<PagePartidaRegistro>();
+
+            builder.Services.AddTransient<PageTime>();
+            builder.Services.AddTransient<PageTimeSorteio>();
+            builder.Services.AddTransient<PageTimeJogadores>();
+
             //ViewModels
-            builder.Services.AddTransient<ViewModelJogador>();
             builder.Services.AddTransient<ViewModelTime>();
-            //builder.Services.AddTransient<ViewModelPartida>();
+            builder.Services.AddTransient<ViewModelJogador>();
+            builder.Services.AddTransient<ViewModelPartida>();
+
+            //Syncfusion
+            //builder.ConfigureSyncfusionCore();
 
             return builder.Build();
         }

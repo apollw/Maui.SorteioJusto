@@ -5,28 +5,22 @@
              Title                 = "Partidas"
              Shell.NavBarIsVisible = "False">
 
-    <Grid RowDefinitions = "5*,50*,8*">
-
-        <VerticalStackLayout>
-            <Label BackgroundColor="Red"/>
-            <Label BackgroundColor="Green"/>
-            <Label BackgroundColor="Yellow"/>
-        </VerticalStackLayout>
+    <Grid RowDefinitions = "7*,*">
 
         <Grid
-                Grid.Row       = "1"
-                Margin         = "15"
-                RowSpacing     = "10"
-                RowDefinitions = "Auto,*">
+            Grid.Row       = "0"
+            Margin         = "15"
+            RowSpacing     = "10"
+            RowDefinitions = "Auto,*">
 
             <CollectionView 
                     Grid.Row        = "2" 
                     ItemsSource     = "{Binding ListaDePartidas}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
-                        <Image 
-                            Source        = "imagem_partida.png" 
-                            HeightRequest = "175"/>
+                        <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" >
+                            <Image Source = "imagem_background_08.png" HorizontalOptions="End"/>
+                        </Border>
                         <Label 
                             Text                    = "Registre novas partidas clicando no botão abaixo"
                             FontSize                = "15"
@@ -83,20 +77,21 @@
         </Grid>
 
         <BoxView 
-            Grid.Row        = "2"
+            Grid.Row        = "1"
             HeightRequest   = "1"
             VerticalOptions = "Start"/>
 
         <Label
-            Grid.Row       = "2"
-            Margin         = "15"
-            Text           = "{Binding ListaDePartidas.Count, 
+            Grid.Row = "1"
+            Margin   = "15"
+            Text     = "{Binding ListaDePartidas.Count, 
                                StringFormat='Partidas Registradas: {0:F0}'}"
+            FontSize = "18"
             FontAttributes ="Bold"/>
 
         <ImageButton
             x:Name            = "_btnAdicionarPartida"
-            Grid.Row          = "2"
+            Grid.Row          = "1"
             Margin            = "15"
             Source            = "add.png"
             VerticalOptions   = "End"

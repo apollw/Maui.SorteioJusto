@@ -9,18 +9,14 @@ public partial class PageTimeSorteio : ContentPage
     public PageTimeSorteio(ViewModelTime vmTime)
     {
         InitializeComponent();
-        VMTime = vmTime;
+        VMTime         = vmTime;
         BindingContext = VMTime;
     }
 
-    //protected override async void OnNavigatedFrom(NavigatedFromEventArgs e)
-    //{
-    //    base.OnNavigatedFrom(e);
-    //    await Task.WhenAll(VMTime.CarregarListaDeTimes());
-    //}
-
     private async void SortearTimes(object sender, EventArgs e)
     {
+        VMTime.IsCriacaoFinalizada = false;
+
         await Task.WhenAll(VMTime.SortearTimes());
 
         if (VMTime.IsCriacaoFinalizada)

@@ -5,54 +5,51 @@
              Title                 = "Sorteio de Times"
              Shell.NavBarIsVisible = "False">
 
-    <Grid RowDefinitions = "5*,50*,8*">
-
-        <VerticalStackLayout>
-            <Label BackgroundColor="Red"/>
-            <Label BackgroundColor="Green"/>
-            <Label BackgroundColor="Yellow"/>
-        </VerticalStackLayout>
+    <Grid RowDefinitions = "7*,*">
 
         <Grid
-            Grid.Row       = "1"
+            Grid.Row       = "0"
             Margin         = "15"
             RowSpacing     = "10"
             RowDefinitions = "Auto,*">
-
-            <CollectionView 
-                    Grid.Row        = "2" 
-                    ItemsSource     = "{Binding ListaDeTimes}">
+            <CollectionView
+                Grid.Row    = "2"
+                ItemsSource = "{Binding ListaDeTimes}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
-                        <Image 
-                            Source        = "imagem_sorteio.png" 
-                            HeightRequest = "175"/>
+                        <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" >
+                            <Image Source = "imagem_background_03.png" HorizontalOptions="End"/>
+                        </Border>
                         <Label 
                             Text                    = "Sorteie novos times clicando no botão abaixo"
                             FontSize                = "15"
                             HorizontalOptions       = "Center"
                             HorizontalTextAlignment = "Center"/>
                     </StackLayout>
-                </CollectionView.EmptyView>
-                
+                </CollectionView.EmptyView>                
                 <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding         = "5"
-                                             WidthRequest    = "350">
-
-                                <Frame   BorderColor     = "Gray"                                                    
-                                             Padding         = "20"
-                                             BackgroundColor = "WhiteSmoke"
-                                             CornerRadius    = "0">
-
-                                    <StackLayout>
-                                        <Label   Text              = "{Binding Nome, StringFormat='{0}'}"
-                                                 FontSize          = "20"
-                                                 FontAttributes    = "Bold" />
-
-                                        <BoxView Color             = "Gray"
-                                                 HeightRequest     = "2"
-                                                 HorizontalOptions = "Fill"/>
+                    <DataTemplate>
+                        <StackLayout WidthRequest="350" Spacing="15">
+                            <Border
+                                Margin          = "10"
+                                StrokeShape     = "RoundRectangle 15"
+                                BackgroundColor = "WhiteSmoke">
+                                <Border.Shadow>
+                                    <Shadow
+                                        Brush   = "Green"
+                                        Offset  = "5,5"
+                                        Radius  = "10"
+                                        Opacity = "0.4"/>
+                                    </Border.Shadow>
+                                    <StackLayout Margin="15">
+                                        <Label
+                                            Text           = "{Binding Nome}"
+                                            FontSize       = "25"
+                                            FontAttributes = "Bold" />                                        
+                                        <BoxView 
+                                            Color             = "Gray"
+                                            HeightRequest     = "2"
+                                            HorizontalOptions = "Fill"/>
 
                                         <!--Aqui ficam as informações dos jogadores de cada time-->
                                         <StackLayout BindableLayout.ItemsSource = "{Binding ListaJogadores}">
@@ -65,34 +62,45 @@
                                             </BindableLayout.ItemTemplate>
                                         </StackLayout>
                                     </StackLayout>
-
-                                </Frame>
+                                </Border>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
 
-        <BoxView 
-            Grid.Row        = "2"
-            HeightRequest   = "1"
-            VerticalOptions = "Start"/>
+        <Grid Grid.Row="2" ColumnDefinitions="7*,2*">
+            <BoxView HeightRequest = "1" VerticalOptions = "Start" Grid.ColumnSpan="2"/>            
+            
+            <Label
+                Grid.Column = "0"
+                Margin      = "15"
+                Text        = "{Binding ListaDeTimes.Count, 
+                                StringFormat='Times Sorteados: {0:F0}'}"
+                FontSize    = "18"
+                FontAttributes ="Bold"/>
 
-        <Label
-            Grid.Row       = "2"
-            Margin         = "15"
-            Text           = "{Binding ListaDeTimes.Count, 
-                               StringFormat='Times Sorteados: {0:F0}'}"
-            FontAttributes ="Bold"/>
+            <ImageButton
+                Grid.Column       = "0"
+                x:Name            = "_btnExcluirTimes"
+                Margin            = "15"
+                Source            = "bin.png"            
+                VerticalOptions   = "End"
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                Clicked           = "Button_ExcluirTimes"/>
 
-        <ImageButton
-            x:Name            = "_btnSortearTimes"
-            Grid.Row          = "2"
-            Margin            = "15"
-            Source            = "add.png"            
-            VerticalOptions   = "End"
-            HorizontalOptions = "End"
-            Clicked           = "Button_SortearTimes"/>
+            <ImageButton
+                Grid.Column       = "1"
+                x:Name            = "_btnSortearTimes"
+                Grid.Row          = "1"
+                Margin            = "15"
+                Source            = "add.png"            
+                VerticalOptions   = "End"
+                HorizontalOptions = "Start"
+                WidthRequest      = "50"
+                Clicked           = "Button_SortearTimes"/>
+        </Grid>
     </Grid>
 
 </ContentPage>

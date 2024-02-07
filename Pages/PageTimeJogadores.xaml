@@ -2,22 +2,30 @@
 <ContentPage xmlns                 = "http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x               = "http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class               = "Maui.SorteioJusto.Pages.PageTimeJogadores"
-             Title                 = "Selecionar Jogadores para o Sorteio"
+             Title                 = "Selecionar Jogadores"
              Shell.TabBarIsVisible = "False">
 
-    <!--<ContentPage.BindingContext>
-        <viewmodels:ViewModelTime />
-    </ContentPage.BindingContext>-->
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
-            <RowDefinition Height = "Auto" />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions = "2*,7*,3*">
+        <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center" Margin="0,20,0,0">
+            <Label 
+                Text              = "Pesquisa por Nome"
+                FontSize          = "18"
+                FontAttributes    = "Bold"
+                HorizontalOptions = "Center"/>
 
-        <ScrollView>
-            <VerticalStackLayout Padding = "10,0,10,0"
-                                 Spacing = "10">
+            <Border StrokeShape="RoundRectangle 65" StrokeThickness="1">
+                <SearchBar
+                    x:Name       = "_searchBar"
+                    Placeholder  = "Digite um Nome"
+                    TextChanged  = "SearchBar_TextChanged"
+                    BackgroundColor="WhiteSmoke"
+                    WidthRequest = "350"/>
+            </Border>
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1" Margin="10,25,10,0">
+            <VerticalStackLayout Padding = "10,0,10,0" Spacing = "10">
                 <Grid Margin             = "0,5,0,5" 
                       RowDefinitions     = "Auto"
                       ColumnDefinitions  = "33*,33*,33*">
@@ -27,7 +35,7 @@
                            Grid.Column             = "0"
                            FontAttributes          = "Bold"
                            HorizontalTextAlignment = "Start"/>
-                    <Label Text                    = "Status" 
+                    <Label Text                    = "Selecionar" 
                            Grid.Row                = "0"
                            Grid.Column             = "3"
                            FontAttributes          = "Bold"
@@ -36,6 +44,18 @@
 
                 <CollectionView x:Name      = "_collectionView" 
                                 ItemsSource = "{Binding ListaDeJogadores}">
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
+                            <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" WidthRequest="250">
+                                <Image Source = "imagem_background_13.png" HorizontalOptions="Center"/>
+                            </Border>
+                            <Label 
+                                Text = "Nenhum Jogador Cadastrado!"
+                                FontSize = "15"
+                                HorizontalOptions = "Center"
+                                HorizontalTextAlignment = "Center"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid RowSpacing        = "0"
@@ -50,8 +70,8 @@
                                           Color             = "Green" 
                                           Grid.Row          = "1" 
                                           Grid.Column       = "3" 
-                                          HorizontalOptions = "End"/>
-                                <!--CheckedChanged    = "OnCheckBoxCheckedChanged"-->
+                                          HorizontalOptions = "End"
+                                          CheckedChanged    ="OnCheckBoxCheckedChanged"/>
                                 <BoxView  BackgroundColor   = "Black"
                                           Grid.Row          = "3"
                                           Grid.Column       = "0"
@@ -63,32 +83,35 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <Grid Grid.Row        = "1"
-              Padding         = "5"
-              ColumnSpacing   = "10"
-              RowSpacing      = "10"
-              BackgroundColor = "LightGreen">
+        <Grid Grid.Row="2">
+            <BoxView 
+                Grid.Row        = "0"
+                HeightRequest   = "1"
+                VerticalOptions = "Start"/>
+            
+            <Label
+                Grid.Row = "0"
+                Margin   = "15"
+                Text     = "{Binding QtdJogadoresSelecionados, 
+                            StringFormat='Jogadores Selecionados: {0:F0}'}"
+                FontSize ="18"
+                FontAttributes ="Bold"/>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height = "*" />
-                <RowDefinition Height = "5" />
-            </Grid.RowDefinitions>
+            <ImageButton
+                Grid.Column       = "0"
+                Source            = "icon_forward.png"
+                WidthRequest      = "75"
+                HorizontalOptions = "Center"
+                Clicked           = "IniciarSorteio"/>
 
-            <ImageButton Source            = "icon_forward.png"
-                         Grid.Column       = "0"
-                         HorizontalOptions = "Center"
-                         WidthRequest      = "50"
-                         BackgroundColor   = "LightGreen"
-                         Clicked           = "IniciarSorteio"/>            
-
-            <ImageButton Source            = "icon_check.png"
-                         Grid.Column       = "0"
-                         HorizontalOptions = "End"
-                         WidthRequest      = "50"
-                         BackgroundColor   = "LightGreen"
-                         Clicked           = "SelecionarTodos"/>
-
-        </Grid>
+            <ImageButton
+                Grid.Column       = "1"
+                Source            = "icon_check.png"
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                Margin="0,0,15,0"
+                Clicked           = "SelecionarTodos"/>
+        </Grid>        
     </Grid>
 
 </ContentPage>

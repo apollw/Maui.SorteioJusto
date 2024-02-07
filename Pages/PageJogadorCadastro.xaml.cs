@@ -6,7 +6,7 @@ namespace Maui.SorteioJusto.Pages;
 
 public partial class PageJogadorCadastro : ContentPage
 {
-    Jogador ObjJogador = new Jogador();
+    Jogador          ObjJogador = new Jogador();
     ViewModelJogador VMJogador = new ViewModelJogador();
 
     public PageJogadorCadastro()
@@ -17,8 +17,9 @@ public partial class PageJogadorCadastro : ContentPage
     public PageJogadorCadastro(ViewModelJogador vmJogador)
     {
         InitializeComponent();
-        VMJogador      = vmJogador;
-        BindingContext = VMJogador;
+        VMJogador                    = vmJogador;
+        VMJogador.ObjJogadorOriginal = new Jogador(VMJogador.ObjJogador);
+        BindingContext               = VMJogador;
     }
 
     private async void Button_SalvarJogador(object sender, EventArgs e)
@@ -35,6 +36,12 @@ public partial class PageJogadorCadastro : ContentPage
         if (VMJogador.IsCadastrado)
         {
             await Navigation.PopAsync();
+        }
+        else
+        {
+            // Resetar os valores das entradas
+            _entryNome.Text     = VMJogador.ObjJogadorOriginal.Nome;
+            _entryTelefone.Text = VMJogador.ObjJogadorOriginal.Telefone;
         }
     }
 

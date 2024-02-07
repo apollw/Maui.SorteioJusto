@@ -14,24 +14,25 @@
         <Image WidthRequest = "200"            
                Source       = "imagem_cadastro.png"/>
 
-        <Entry 
-            x:Name                = "_entryNome"
-            Text                  = "{Binding ObjJogador.Nome}"
-            MaxLength             = "20"
-            WidthRequest          = "250"
-            BackgroundColor       = "WhiteSmoke"
-            PlaceholderColor      = "Gray"
-            Placeholder           = "Insira o Nome do Jogador"
-            ClearButtonVisibility = "WhileEditing"
-            Keyboard              = "Default"
-            Focused               = "EntryNome_Focused"
-            ReturnType            = "Done"/>
+        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" WidthRequest="250">
+            <Entry 
+                x:Name                = "_entryNome"
+                Text                  = "{Binding ObjJogador.Nome}"
+                MaxLength             = "20"
+                BackgroundColor       = "WhiteSmoke"
+                PlaceholderColor      = "Gray"
+                Placeholder           = "Insira o Nome do Jogador"
+                ClearButtonVisibility = "WhileEditing"
+                Keyboard              = "Default"
+                Focused               = "EntryNome_Focused"
+                ReturnType            = "Done"/>
+        </Border>
 
-        <Entry 
+        <Border StrokeShape="RoundRectangle 10" StrokeThickness="2" WidthRequest="250">
+            <Entry 
             x:Name                = "_entryTelefone"
             Text                  = "{Binding ObjJogador.Telefone}"
             MaxLength             = "15"
-            WidthRequest          = "250"
             BackgroundColor       = "WhiteSmoke"
             PlaceholderColor      = "Gray"
             Placeholder           = "Telefone: (XX) XXXXX-XXXX"
@@ -39,12 +40,13 @@
             Keyboard              = "Telephone"
             Focused               = "EntryTelefone_Focused"
             ReturnType            = "Done"/>
+        </Border>
 
         <Label Text = 
                "{
                 Binding Source = {x:Reference _stepper},
                 Path           = Value, 
-                StringFormat   = 'Nota do Jogador: {0:F0}'
+                StringFormat   = 'Classificacão: {0:F0}'
                }"
                FontSize            = "Large"
                TextColor           = "Green"
@@ -58,21 +60,21 @@
                  Minimum           = "1"
                  Maximum           = "5"                 
                  Increment         = "1"
-                 BackgroundColor   = "White"                 
+                 BackgroundColor   = "White"
                  HorizontalOptions = "Center"/>
 
-        <Button  x:Name              = "_btnSalvar"
-                 WidthRequest        = "250"
-                 Text                = "Salvar"
-                 TextColor           = "Green"
-                 FontSize            = "18"
-                 FontAttributes      = "Bold"
-                 FontFamily          = "Alef"
-                 BackgroundColor     = "White"
-                 BorderColor         = "LightGreen"
-                 CornerRadius        = "10"
-                 BorderWidth         = "4"            
-                 HorizontalOptions   = "Center"
-                 Clicked             = "Button_SalvarJogador"/>
+        <Button  x:Name            = "_btnSalvar"
+                 WidthRequest      = "250"
+                 Text              = "Salvar"
+                 TextColor         = "Green"
+                 FontSize          = "18"
+                 FontAttributes    = "Bold"
+                 FontFamily        = "Alef"
+                 BackgroundColor   = "White"
+                 BorderColor       = "LightGreen"
+                 CornerRadius      = "10"
+                 BorderWidth       = "4"            
+                 HorizontalOptions = "Center"
+                 Clicked           = "Button_SalvarJogador"/>
     </VerticalStackLayout>
 </ContentPage>
