@@ -6,14 +6,13 @@
              Shell.TabBarIsVisible = "False">
 
 
-    <Grid RowDefinitions = "2*,7*,3*">
-        <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center" Margin="0,20,0,0">
+    <Grid RowDefinitions = "2*,6*,2*">
+        <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center" Margin="0,20,0,0" Spacing="15">
             <Label 
                 Text              = "Pesquisa por Nome"
                 FontSize          = "18"
                 FontAttributes    = "Bold"
                 HorizontalOptions = "Center"/>
-
             <Border StrokeShape="RoundRectangle 65" StrokeThickness="1">
                 <SearchBar
                     x:Name       = "_searchBar"
@@ -24,25 +23,29 @@
             </Border>
         </VerticalStackLayout>
 
-        <ScrollView Grid.Row="1" Margin="10,25,10,0">
+        <ScrollView Grid.Row="1" Margin="10,0,10,0">
             <VerticalStackLayout Padding = "10,0,10,0" Spacing = "10">
                 <Grid Margin             = "0,5,0,5" 
-                      RowDefinitions     = "Auto"
-                      ColumnDefinitions  = "33*,33*,33*">
-
-                    <Label Text                    = "Nome"
-                           Grid.Row                = "0"
-                           Grid.Column             = "0"
-                           FontAttributes          = "Bold"
-                           HorizontalTextAlignment = "Start"/>
-                    <Label Text                    = "Selecionar" 
-                           Grid.Row                = "0"
-                           Grid.Column             = "3"
-                           FontAttributes          = "Bold"
-                           HorizontalTextAlignment = "End"/>
+                      RowDefinitions     = "*,*"
+                      ColumnDefinitions  = "9*,1*"
+                      BackgroundColor    = "WhiteSmoke">
+                    <Label 
+                        Text                    = "Nome"
+                        Grid.Row                = "0"
+                        Grid.Column             = "0"
+                        FontAttributes          = "Bold"
+                        HorizontalTextAlignment = "Start"/>
+                    <ImageButton
+                        Source            = "icon_check.png"
+                        Grid.Row          = "0"
+                        Grid.Column       = "1"
+                        WidthRequest      = "25"
+                        HeightRequest     = "25"
+                        Clicked           = "SelecionarTodos"/>
                 </Grid>
 
-                <CollectionView x:Name      = "_collectionView" 
+                <CollectionView x:Name = "_collectionView"
+                                BackgroundColor = "WhiteSmoke"
                                 ItemsSource = "{Binding ListaDeJogadores}">
                     <CollectionView.EmptyView>
                         <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
@@ -97,20 +100,20 @@
                 FontSize ="18"
                 FontAttributes ="Bold"/>
 
-            <ImageButton
+            <Button 
                 Grid.Column       = "0"
-                Source            = "icon_forward.png"
-                WidthRequest      = "75"
-                HorizontalOptions = "Center"
-                Clicked           = "IniciarSorteio"/>
-
-            <ImageButton
-                Grid.Column       = "1"
-                Source            = "icon_check.png"
-                HorizontalOptions = "End"
-                WidthRequest      = "50"
-                Margin="0,0,15,0"
-                Clicked           = "SelecionarTodos"/>
+                Text              = "Definir Equipe"
+                BackgroundColor   = "WhiteSmoke"
+                TextColor         = "Black"
+                FontSize          = "18"
+                FontAttributes    = "Bold"
+                FontFamily        = "Alef"
+                Margin            = "10"
+                CornerRadius      = "10"
+                WidthRequest      = "250"
+                Clicked           = "IniciarSorteio"
+                HorizontalOptions = "CenterAndExpand"
+                VerticalOptions   = "Center"/>
         </Grid>        
     </Grid>
 

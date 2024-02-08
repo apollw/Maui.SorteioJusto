@@ -3,7 +3,6 @@ using Maui.SorteioJusto.Services.Implementations;
 using Maui.SorteioJusto.Services.Interfaces;
 using Maui.SorteioJusto.ViewModels;
 using Microsoft.Extensions.Logging;
-using Syncfusion.Maui.Core.Hosting;
 
 namespace Maui.SorteioJusto
 {
@@ -37,6 +36,7 @@ namespace Maui.SorteioJusto
             builder.Services.AddTransient<PagePartidaRegistro>();
 
             builder.Services.AddTransient<PageTime>();
+            builder.Services.AddTransient<PageTimeEdicao>();
             builder.Services.AddTransient<PageTimeSorteio>();
             builder.Services.AddTransient<PageTimeJogadores>();
 

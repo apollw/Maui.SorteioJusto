@@ -35,13 +35,11 @@
                 ItemsSource     = "{Binding ListaDeJogadores}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
-                        <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" >
-                            <Image Source = "imagem_background_05.png" HorizontalOptions="End"/>
-                        </Border>
+                        <Image Source="imagem_cadastro.png" HorizontalOptions="Center" HeightRequest="100"/>
                         <Label 
-                            Text                    = "Cadastre novos jogadores clicando no botão abaixo"
-                            FontSize                = "15"
-                            HorizontalOptions       = "Center"
+                            Text = "Cadastre novos jogadores clicando no botão abaixo"
+                            FontSize = "15"
+                            HorizontalOptions = "Center"
                             HorizontalTextAlignment = "Center"/>
                     </StackLayout>
                 </CollectionView.EmptyView>               
@@ -94,84 +92,38 @@
             </CollectionView>
         </Grid>
 
-        <Grid Grid.Row="2">
-            <BoxView 
-                Grid.Row        = "0"
-                HeightRequest   = "1"
-                VerticalOptions = "Start"/>
+        <Grid Grid.Row="2" ColumnDefinitions="7*,2*">
+            <BoxView HeightRequest = "1" VerticalOptions = "Start" Grid.ColumnSpan="2"/>
             <Label
                 Grid.Row = "0"
                 Margin   = "15"
                 Text     = "{Binding ListaDeJogadores.Count, 
                             StringFormat='Jogadores Cadastrados: {0:F0}'}"
-                FontSize ="18"
+                FontSize ="12"
                 FontAttributes ="Bold"/>
 
             <ImageButton
+                Grid.Column       = "0"
+                x:Name            = "_btnExcluirJogadores"
+                Margin            = "15"
+                Source            = "bin.png"            
+                VerticalOptions   = "End"
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                HeightRequest     = "50"/>
+
+            <ImageButton
                 x:Name            = "_btnAdicionarJogador"
+                Grid.Column       = "1"
                 Grid.Row          = "1"
                 Margin            = "15"
                 Source            = "add.png"
-                Clicked           = "Button_AdicionarJogador"
                 VerticalOptions   = "End"
-                HorizontalOptions = "End"/>
-        </Grid>
-        
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                HeightRequest     = "50"
+                Clicked           = "Button_AdicionarJogador"/>
+        </Grid>        
     </Grid>
     
 </ContentPage>
-
-<!--<CollectionView.ItemTemplate>
-     <DataTemplate>
-         <SwipeView>
-             <SwipeView.RightItems>
-                 <SwipeItems >
-                     <SwipeItem 
-                         Invoked         = "OnDeleteSwipeItemInvoked"
-                         IconImageSource = "bin.png"
-                         BackgroundColor = "Red"/>
-                     <SwipeItem 
-                         Invoked         = "OnEditSwipeItemInvoked"
-                         IconImageSource = "icon_edit.png"
-                         BackgroundColor = "LightBlue"/>
-                 </SwipeItems>
-             </SwipeView.RightItems>
-
-             <Grid Padding = "0,5">
-                 <Frame 
-                     BorderColor  = "LightGreen"
-                     CornerRadius = "5"                                   
-                     Padding      = "8">
-                     <StackLayout>
-                         <Label
-                                 Text                    = "{Binding Nome}"
-                                 TextColor               = "DarkGreen"
-                                 FontSize                = "20"
-                                 FontAttributes          = "Bold"
-                                 HorizontalTextAlignment = "Start"/>
-                         <BoxView 
-                                 Color             = "Green"
-                                 HeightRequest     = "2"
-                                 HorizontalOptions = "Fill"/>
-                         <Label 
-                                 Text                    = "{Binding Telefone,
-                                                             StringFormat='Telefone: {0:F0}'}"
-                                 FontSize                = "15"
-                                 HorizontalTextAlignment = "Start"/>
-                         <Label 
-                                 Text                    = "{Binding Classificacao, 
-                                                             StringFormat='Classificação: {0:F0}'}"
-                                 FontSize                = "15"
-                                 HorizontalTextAlignment = "Start"/>
-                         <Label   
-                                 Text              = "←Editar/Excluir" 
-                                 FontSize          = "15"
-                                 HorizontalOptions = "End"                                                       
-                                 TextColor         = "Gray"/>
-                     </StackLayout>
-                 </Frame>
-             </Grid>
-         </SwipeView>
-     </DataTemplate>
- </CollectionView.ItemTemplate>-->
-

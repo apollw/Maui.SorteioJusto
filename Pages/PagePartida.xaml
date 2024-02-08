@@ -5,22 +5,23 @@
              Title                 = "Partidas"
              Shell.NavBarIsVisible = "False">
 
-    <Grid RowDefinitions = "7*,*">
+    <Grid RowDefinitions = "*,7*,*">
+
+        <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center">
+            <Image Source="banner.png" Aspect="Fill"/>
+        </VerticalStackLayout>
 
         <Grid
-            Grid.Row       = "0"
+            Grid.Row       = "1"
             Margin         = "15"
             RowSpacing     = "10"
             RowDefinitions = "Auto,*">
 
             <CollectionView 
-                    Grid.Row        = "2" 
                     ItemsSource     = "{Binding ListaDePartidas}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
-                        <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" >
-                            <Image Source = "imagem_background_08.png" HorizontalOptions="End"/>
-                        </Border>
+                        <Image Source = "imagem_partida.png" HorizontalOptions="Center" HeightRequest="100"/>
                         <Label 
                             Text                    = "Registre novas partidas clicando no botão abaixo"
                             FontSize                = "15"
@@ -76,27 +77,38 @@
             </CollectionView>
         </Grid>
 
-        <BoxView 
-            Grid.Row        = "1"
-            HeightRequest   = "1"
-            VerticalOptions = "Start"/>
+        <Grid Grid.Row="2" ColumnDefinitions="7*,2*">
+            <BoxView HeightRequest = "1" VerticalOptions = "Start" Grid.ColumnSpan="2"/>
+            <Label
+                Grid.Row = "0"
+                Margin   = "15"
+                Text     = "{Binding ListaDePartidas.Count, 
+                             StringFormat='Partidas Registradas: {0:F0}'}"
+                FontSize = "12"
+                FontAttributes ="Bold"/>
 
-        <Label
-            Grid.Row = "1"
-            Margin   = "15"
-            Text     = "{Binding ListaDePartidas.Count, 
-                               StringFormat='Partidas Registradas: {0:F0}'}"
-            FontSize = "18"
-            FontAttributes ="Bold"/>
-
-        <ImageButton
-            x:Name            = "_btnAdicionarPartida"
-            Grid.Row          = "1"
-            Margin            = "15"
-            Source            = "add.png"
-            VerticalOptions   = "End"
-            HorizontalOptions = "End"
-            Clicked           = "Button_AdicionarPartida"/>
+            <ImageButton
+                x:Name            = "_btnExcluirPartidas"
+                Grid.Column       = "0"
+                Margin            = "15"
+                Source            = "bin.png"            
+                VerticalOptions   = "End"
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                HeightRequest     = "50"/>
+            
+            <ImageButton
+                x:Name            = "_btnAdicionarPartida"
+                Grid.Row          = "1"
+                Grid.Column       = "1"
+                Margin            = "15"
+                Source            = "add.png"
+                VerticalOptions   = "End"
+                HorizontalOptions = "End"
+                WidthRequest      = "50"
+                HeightRequest     = "50"
+                Clicked           = "Button_AdicionarPartida"/>
+        </Grid>
     </Grid>
 
 </ContentPage>

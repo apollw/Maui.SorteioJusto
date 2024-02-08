@@ -2,127 +2,172 @@
 <ContentPage xmlns   = "http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x = "http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class = "Maui.SorteioJusto.Pages.PagePartidaSelecao"
-             Title   = "Registro de Partida">
+             Title   = "Registro de Partida"
+             BackgroundColor="WhiteSmoke">
 
-    <ScrollView>
-        <Grid RowDefinitions="*,3">
-            <VerticalStackLayout Spacing="15" VerticalOptions="CenterAndExpand">
-                
-                <Picker x:Name                  = "_picker1"
-                        Grid.Column             = "0"
-                        Title                   = "Escolha o Time da Casa"
-                        TextColor               = "Black" 
-                        TitleColor              = "Black"
-                        BackgroundColor         = "WhiteSmoke"
-                        FontSize                = "20"
-                        HorizontalTextAlignment = "Center"
-                        ItemsSource             = "{Binding ListaDeTimes}"
-                        SelectedItem            = "{Binding TimeSelecionado1}"                    
-                        ItemDisplayBinding      = "{Binding Nome}"
-                        WidthRequest            = "300"/>
-                
-                <StackLayout Padding            = "5" 
-                             WidthRequest       = "250">
-
-                    <Frame   BorderColor        = "Red"
-                             CornerRadius       = "0" 
-                             Padding            = "22" 
-                             BackgroundColor    = "White">
-
-                            <StackLayout>
-                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado1.ListaJogadores}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Label Text              = "{Binding Nome}"
-                                                   FontSize          = "15"
-                                                   HorizontalOptions = "CenterAndExpand"/>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-
-                            <Button Text                = "Editar"
-                                    TextColor           = "Gray"
-                                    BackgroundColor     = "White"
-                                    FontSize            = "15"
-                                    FontAttributes      = "Bold"
-                                    HorizontalOptions   = "End"
-                                    Clicked             = "Button_EditarTime"
-                                    CommandParameter    = "_picker1"
-                                    IsVisible           = "{Binding TimeSelecionado1.IsTimeIncompleto}"/>
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
-
-                <Picker x:Name                  = "_picker2"
-                        Grid.Column             = "1"
-                        Title                   = "Escolha o Time Visitante"
-                        TextColor               = "Black"
-                        TitleColor              = "Black"
-                        BackgroundColor         = "WhiteSmoke"
-                        FontSize                = "20"
-                        HorizontalTextAlignment = "Center"
-                        ItemsSource             = "{Binding ListaDeTimes}"
-                        SelectedItem            = "{Binding TimeSelecionado2}"                    
-                        ItemDisplayBinding      = "{Binding Nome}"
-                        WidthRequest            = "300"/>
-
-                <StackLayout   Padding          = "5"
-                               WidthRequest     = "250">
-
-                    <Frame     BorderColor      = "Red"
-                               CornerRadius     = "0" 
-                               Padding          = "22"
-                               BackgroundColor  = "White">
-
-                        <StackLayout>
-                            <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado2.ListaJogadores}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Label Text              = "{Binding Nome}"
-                                                   FontSize          = "15"
-                                                   HorizontalOptions = "CenterAndExpand"/>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-
-                            <Button Text              = "Editar"
-                                    TextColor         = "Gray"
-                                    BackgroundColor   = "White"
-                                    FontSize          = "15"
-                                    FontAttributes    = "Bold"
-                                    HorizontalOptions = "End"                                    
-                                    Clicked           = "Button_EditarTime"
-                                    CommandParameter  = "_picker2"
-                                    IsVisible         = "{Binding TimeSelecionado2.IsTimeIncompleto}"/>
-
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
-
-                <!--Botões de Iniciar e Registrar Partida-->
-                <Grid       Padding             = "25">
-                    <Button Text                = "Iniciar Partida" 
-                            Grid.Column         = "0" 
-                            HorizontalOptions   = "CenterAndExpand" 
-                            VerticalOptions     = "Start" 
-                            WidthRequest        = "250"
-                            BackgroundColor     = "WhiteSmoke"
-                            TextColor           = "Green"
-                            FontSize            = "18"
-                            FontAttributes      = "Bold"
-                            FontFamily          = "Alef"
-                            BorderColor         = "LightGreen"
-                            CornerRadius        = "10"
-                            BorderWidth         = "4"
-                            Clicked             = "Button_IniciarPartida"/>
-                </Grid>
+    <ScrollView Margin="10,0,10,0">
+        <VerticalStackLayout VerticalOptions="Center">
+            <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center">
+                <Image Source="banner.png" Aspect="Fill"/>
             </VerticalStackLayout>
-            
-        </Grid>
+            <!--LETREIRO-->
+            <Border
+                StrokeShape    ="RoundRectangle 10,10,0,0"
+                HeightRequest  ="50"
+                BackgroundColor="lightgreen">
+                <Label 
+                    Text="Seleção de Equipes" 
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"/>
+            </Border>
+
+            <Label BackgroundColor="White" HeightRequest="25"/>
+
+            <VerticalStackLayout BackgroundColor="White">
+                <!--PICKER DO TIME DA CASA-->
+                    <Picker
+                        x:Name             = "_picker1"
+                        Title              = "Escolha o Time da Casa"
+                        TitleColor         = "Black"
+                        TextColor          = "Black"
+                        BackgroundColor    = "WhiteSmoke"
+                        FontSize           = "15"
+                        FontAttributes     = "Bold"
+                        ItemsSource        = "{Binding ListaDeTimes}"
+                        SelectedItem       = "{Binding TimeSelecionado1}"                    
+                        ItemDisplayBinding = "{Binding Nome}"
+                        WidthRequest       = "250"
+                        HorizontalTextAlignment = "Center"/>
+                <!--CONTÊINER DO TIME DA CASA-->
+                <Border
+                    Margin          ="10" 
+                    WidthRequest    ="250"
+                    StrokeShape     ="RoundRectangle 10"
+                    BackgroundColor ="WhiteSmoke">
+                    <Border.Shadow>
+                        <Shadow
+                            Brush   = "Gray"
+                            Offset  = "5,5"
+                            Radius  = "10"
+                            Opacity = "0.4"/>
+                        </Border.Shadow>
+                    <StackLayout>
+                        <Label
+                            Text="Lista de Jogadores"
+                            FontAttributes="Italic"
+                            HorizontalOptions="Center"/>
+                        <BoxView HeightRequest="1"/>
+                        <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado1.ListaJogadores}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        Grid.Row="1"
+                                        Text = "{Binding Nome}"
+                                        TextColor="Black"
+                                        FontSize = "15"
+                                        HorizontalOptions = "Center"/>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                        
+                        <Button
+                            Text              = "Editar"
+                            TextColor         = "Gray"
+                            BorderColor       = "Transparent"
+                            BackgroundColor   = "WhiteSmoke"
+                            FontSize          = "10"
+                            FontAttributes    = "Bold"
+                            HorizontalOptions = "End"
+                            Clicked           = "Button_EditarTime"
+                            CommandParameter  = "_picker1"
+                            IsVisible         = "{Binding TimeSelecionado1.IsTimeIncompleto}"/>
+                    </StackLayout>
+                </Border>
+                
+                <!--PICKER DO TIME VISITANTE-->
+                <Picker
+                    x:Name                  = "_picker2"
+                    Title                   = "Escolha o Time Visitante"
+                    TextColor               = "Black"
+                    TitleColor              = "Black"
+                    BackgroundColor         = "WhiteSmoke"
+                    FontSize                = "15"
+                    FontAttributes          = "Bold"
+                    ItemsSource             = "{Binding ListaDeTimes}"
+                    SelectedItem            = "{Binding TimeSelecionado2}"                    
+                    ItemDisplayBinding      = "{Binding Nome}"
+                    WidthRequest            = "250"
+                    HorizontalTextAlignment = "Center"/>
+                
+                <!--CONTÊINER DO TIME VISITANTE-->
+                <Border 
+                    Margin = "0,10,0,20" 
+                    WidthRequest="250"
+                    StrokeShape="RoundRectangle 10"
+                    BackgroundColor = "WhiteSmoke" >
+                    <Border.Shadow>
+                        <Shadow
+                            Brush   = "Gray"
+                            Offset  = "5,5"
+                            Radius  = "10"
+                            Opacity = "0.4"/>
+                    </Border.Shadow>
+                    <StackLayout>
+                        <Label
+                            Text="Lista de Jogadores"
+                            FontAttributes="Italic"
+                            HorizontalOptions="Center"/>
+                        <BoxView HeightRequest="1"/>
+                        <StackLayout BindableLayout.ItemsSource = "{Binding TimeSelecionado2.ListaJogadores}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            Text              = "{Binding Nome}"
+                                            TextColor         = "Black"
+                                            FontSize          = "15"
+                                            HorizontalOptions = "CenterAndExpand"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                        
+                        <Button
+                            Text              = "Editar"
+                            TextColor         = "Gray"
+                            BorderColor       = "Transparent"
+                            BackgroundColor   = "WhiteSmoke"
+                            FontSize          = "10"
+                            FontAttributes    = "Bold"
+                            HorizontalOptions = "End"                                    
+                            Clicked           = "Button_EditarTime"
+                            CommandParameter  = "_picker2"
+                            IsVisible         = "{Binding TimeSelecionado2.IsTimeIncompleto}"/>
+                    </StackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <!--LETREIRO INFERIOR-->
+            <Border 
+                HeightRequest  ="75"
+                BackgroundColor="lightgreen"
+                StrokeShape="RoundRectangle 0,0,10,10">
+                <Button 
+                    Text              = "Iniciar Partida"                        
+                    BackgroundColor   = "WhiteSmoke"
+                    TextColor         = "Black"
+                    FontSize          = "18"
+                    FontAttributes    = "Bold"
+                    FontFamily        = "Alef"
+                    Margin            = "10"
+                    CornerRadius      = "10"
+                    WidthRequest      = "250"
+                    Clicked           = "Button_IniciarPartida"
+                    HorizontalOptions = "CenterAndExpand"
+                    VerticalOptions   = "Start"/>
+            </Border>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
-

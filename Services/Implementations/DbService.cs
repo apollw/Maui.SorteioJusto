@@ -15,7 +15,6 @@ namespace Maui.SorteioJusto.Services.Implementations
 
         public async Task SetUpDb()
         {
-
             if (_dbConnection == null)
             {
                 // Caminho para o desktop

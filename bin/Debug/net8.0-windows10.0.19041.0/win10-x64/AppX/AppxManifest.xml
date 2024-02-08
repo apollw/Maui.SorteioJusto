@@ -7,10 +7,10 @@
 
     Para obter mais informações sobre arquivos de pacote de manifesto consulte http://go.microsoft.com/fwlink/?LinkID=241727
   -->
-  <Identity Name="com.companyname.maui.sorteiojusto" Publisher="CN=User Name" Version="1.0.0.1" ProcessorArchitecture="x64" />
+  <Identity Name="com.sunlightworks.maui.sorteiojusto" Publisher="CN=User Name" Version="1.0.0.1" ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="E25617DE-D4C4-4A8B-93EC-5BD278F2555B" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Maui.SorteioJusto</DisplayName>
+    <DisplayName>Sorteio Justo</DisplayName>
     <PublisherDisplayName>User Name</PublisherDisplayName>
     <Logo>appiconStoreLogo.png</Logo>
   </Properties>
@@ -24,14 +24,14 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="Maui.SorteioJusto.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="Maui.SorteioJusto" Description="Maui.SorteioJusto" Square150x150Logo="appiconMediumTile.png" Square44x44Logo="appiconLogo.png" BackgroundColor="transparent">
-        <uap:DefaultTile Square71x71Logo="appiconSmallTile.png" Wide310x150Logo="appiconWideTile.png" Square310x310Logo="appiconLargeTile.png" ShortName="Maui.SorteioJusto">
+      <uap:VisualElements DisplayName="Sorteio Justo" Description="Sorteio Justo" Square150x150Logo="appiconMediumTile.png" Square44x44Logo="appiconLogo.png" BackgroundColor="transparent">
+        <uap:DefaultTile Square71x71Logo="appiconSmallTile.png" Wide310x150Logo="appiconWideTile.png" Square310x310Logo="appiconLargeTile.png" ShortName="Sorteio Justo">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
             <uap:ShowOn Tile="wide310x150Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="splashSplashScreen.png" />
+        <uap:SplashScreen Image="splashscreenSplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

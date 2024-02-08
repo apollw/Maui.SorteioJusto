@@ -32,6 +32,24 @@ public partial class PageTime : ContentPage
         await Navigation.PushAsync(new PageTimeJogadores(VMTime));
     }
 
+    private async void OnDeleteButtonClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var jogador = button?.BindingContext as Jogador;
+
+        //if (jogador != null)
+        //{
+        //    string message = "Deseja excluir " + jogador.Nome + "?";
+        //    bool confirmar = await DisplayAlert("Aviso", message, "Sim", "Não");
+
+        //    if (confirmar)
+        //    {
+        //        VMJogador.ListaDeJogadores.Remove(jogador);
+        //        VMJogador.ExcluirJogador(jogador);
+        //    }
+        //}
+    }
+
     private async void Button_ExcluirTimes(object sender, EventArgs e)
     {
         string message = "Deseja limpar a lista?";

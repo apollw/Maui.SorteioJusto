@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Maui.SorteioJusto</ApplicationTitle>
+		<ApplicationTitle>Sorteio Justo</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.maui.sorteiojusto</ApplicationId>
@@ -36,6 +36,29 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<PublishAot>False</PublishAot>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+	  <AndroidEnableSGenConcurrent>True</AndroidEnableSGenConcurrent>
+	  <ApplicationTitle>Sorteio Justo</ApplicationTitle>
+	  <ApplicationId>com.sunlightworks.maui.sorteiojusto</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidEnableSGenConcurrent>True</AndroidEnableSGenConcurrent>
+	  <ApplicationTitle>Sorteio Justo</ApplicationTitle>
+	  <ApplicationId>com.sunlightworks.maui.sorteiojusto</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Sorteio Justo</ApplicationTitle>
+	  <ApplicationId>com.sunlightworks.maui.sorteiojusto</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Sorteio Justo</ApplicationTitle>
+	  <ApplicationId>com.sunlightworks.maui.sorteiojusto</ApplicationId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -58,7 +81,9 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\add.png" />
+	  <None Remove="Resources\Images\banner.png" />
 	  <None Remove="Resources\Images\bin.png" />
+	  <None Remove="Resources\Images\bin2.png" />
 	  <None Remove="Resources\Images\icon_back.png" />
 	  <None Remove="Resources\Images\icon_check.png" />
 	  <None Remove="Resources\Images\icon_edit.png" />
@@ -109,7 +134,6 @@
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.7" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
 		<PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.7" />
-		<PackageReference Include="Syncfusion.Maui.Expander" Version="24.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>

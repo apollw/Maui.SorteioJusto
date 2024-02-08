@@ -16,7 +16,7 @@ namespace Maui.SorteioJusto.Models
 
         [PrimaryKey,NotNull]
         public int Id { get => _id; set => _id = value; }
-        [MaxLength(15),NotNull]
+        [MaxLength(15)]
         public string Nome { get => _nome; set => _nome = value; }
         public int  Nivel { get => _nivel; set => _nivel = value; }
         public int  TotalJogadores { get => _totalJogadores; set => _totalJogadores = value; }

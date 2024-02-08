@@ -1,7 +1,5 @@
 using Maui.SorteioJusto.Models;
 using Maui.SorteioJusto.ViewModels;
-using Syncfusion.Maui.Core.Carousel;
-using System.Diagnostics;
 
 namespace Maui.SorteioJusto.Pages;
 
@@ -17,7 +15,6 @@ public partial class PageTimeEdicao : ContentPage
         _timeParaEdicao = VMPartida.TimeParaEdicao;
         BindingContext  = VMPartida;
 	}
-
 
     public async void Button_SalvarTime(object sender, EventArgs e)
     {

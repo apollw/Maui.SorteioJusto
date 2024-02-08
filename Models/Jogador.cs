@@ -31,9 +31,9 @@ namespace Maui.SorteioJusto.Models
 
         [PrimaryKey, NotNull]
         public int Id { get => _id; set => _id = value; }
-        [MaxLength(20), NotNull]
+        [MaxLength(20)]
         public string Nome { get => _nome; set => _nome = value; }
-        [MaxLength(15), NotNull]
+        [MaxLength(15)]
         public string Telefone { get => _telefone; set => _telefone = value; }        
         public int    Posicao { get => _posicao; set => _posicao        = value; }
         public int    Status { get => _status; set => _status         = value; }

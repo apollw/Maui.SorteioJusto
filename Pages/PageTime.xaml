@@ -5,21 +5,22 @@
              Title                 = "Sorteio de Times"
              Shell.NavBarIsVisible = "False">
 
-    <Grid RowDefinitions = "7*,*">
+    <Grid RowDefinitions = "*,7*,*">
+
+        <VerticalStackLayout Grid.Row = "0" HorizontalOptions="Center">
+            <Image Source="banner.png" Aspect="Fill"/>
+        </VerticalStackLayout>
 
         <Grid
-            Grid.Row       = "0"
+            Grid.Row       = "1"
             Margin         = "15"
             RowSpacing     = "10"
             RowDefinitions = "Auto,*">
             <CollectionView
-                Grid.Row    = "2"
                 ItemsSource = "{Binding ListaDeTimes}">
                 <CollectionView.EmptyView>
                     <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
-                        <Border StrokeShape="RoundRectangle 65" StrokeThickness="1" >
-                            <Image Source = "imagem_background_03.png" HorizontalOptions="End"/>
-                        </Border>
+                        <Image Source="imagem_sorteio.png" HorizontalOptions="Center" HeightRequest="100"/>
                         <Label 
                             Text                    = "Sorteie novos times clicando no botão abaixo"
                             FontSize                = "15"
@@ -61,7 +62,27 @@
                                                 </DataTemplate>
                                             </BindableLayout.ItemTemplate>
                                         </StackLayout>
+
+                                    <!-- Botões de edição e exclusão -->
+                                    <StackLayout
+                                        Spacing="15"
+                                        Orientation="Horizontal" 
+                                        HorizontalOptions="End">
+                                        <ImageButton
+                                            Source  ="icon_edit.png"
+                                            WidthRequest ="50"
+                                            HeightRequest ="50"
+                                            BackgroundColor ="Transparent"/>
+                                        <!--Clicked ="OnEditButtonClicked"-->
+                                        <ImageButton
+                                            Source  = "bin.png"
+                                            WidthRequest ="50"
+                                            HeightRequest ="50"
+                                            BackgroundColor="Transparent"
+                                            Clicked = "OnDeleteButtonClicked"/>
                                     </StackLayout>
+
+                                </StackLayout>
                                 </Border>
                             </StackLayout>
                         </DataTemplate>
@@ -70,16 +91,15 @@
         </Grid>
 
         <Grid Grid.Row="2" ColumnDefinitions="7*,2*">
-            <BoxView HeightRequest = "1" VerticalOptions = "Start" Grid.ColumnSpan="2"/>            
-            
+            <BoxView HeightRequest = "1" VerticalOptions = "Start" Grid.ColumnSpan="2"/>
             <Label
                 Grid.Column = "0"
                 Margin      = "15"
                 Text        = "{Binding ListaDeTimes.Count, 
                                 StringFormat='Times Sorteados: {0:F0}'}"
-                FontSize    = "18"
+                FontSize    = "12"
                 FontAttributes ="Bold"/>
-
+            
             <ImageButton
                 Grid.Column       = "0"
                 x:Name            = "_btnExcluirTimes"
@@ -88,8 +108,9 @@
                 VerticalOptions   = "End"
                 HorizontalOptions = "End"
                 WidthRequest      = "50"
+                HeightRequest     = "50"
                 Clicked           = "Button_ExcluirTimes"/>
-
+            
             <ImageButton
                 Grid.Column       = "1"
                 x:Name            = "_btnSortearTimes"
@@ -97,8 +118,9 @@
                 Margin            = "15"
                 Source            = "add.png"            
                 VerticalOptions   = "End"
-                HorizontalOptions = "Start"
+                HorizontalOptions = "End"
                 WidthRequest      = "50"
+                HeightRequest     = "50"
                 Clicked           = "Button_SortearTimes"/>
         </Grid>
     </Grid>

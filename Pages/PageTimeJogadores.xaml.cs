@@ -54,6 +54,7 @@ public partial class PageTimeJogadores : ContentPage
         {
             jogador.Status = todosSelecionados ? 0 : 1;
         }
+
         VMTime.AtualizarQtdDeJogadoresSelecionados();
         AtualizarExibicaoCheckBoxes();
     }
