@@ -72,8 +72,9 @@
                                             Source  ="icon_edit.png"
                                             WidthRequest ="50"
                                             HeightRequest ="50"
-                                            BackgroundColor ="Transparent"/>
-                                        <!--Clicked ="OnEditButtonClicked"-->
+                                            BackgroundColor ="Transparent"
+                                            Clicked ="OnEditButtonClicked"/>
+
                                         <ImageButton
                                             Source  = "bin.png"
                                             WidthRequest ="50"

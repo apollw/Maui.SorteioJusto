@@ -111,6 +111,8 @@
 	  <None Remove="Resources\Images\imagem_background_14.jpg" />
 	  <None Remove="Resources\Images\imagem_cadastro.png" />
 	  <None Remove="Resources\Images\imagem_partida.png" />
+	  <None Remove="Resources\Images\imagem_seta1.png" />
+	  <None Remove="Resources\Images\imagem_seta2.png" />
 	  <None Remove="Resources\Images\imagem_sorteio.png" />
 	  <None Remove="Resources\Images\numero_0.png" />
 	  <None Remove="Resources\Images\numero_1.png" />
@@ -137,6 +139,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\PageTimeSelecao.xaml.cs">
+	    <DependentUpon>PageTimeSelecao.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\PagePartidaSelecao.xaml.cs">
 	    <DependentUpon>PagePartidaSelecao.xaml</DependentUpon>
 	  </Compile>
@@ -147,6 +152,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\PageJogadorCadastro.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\PageTimeSelecao.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\PagePartida.xaml">

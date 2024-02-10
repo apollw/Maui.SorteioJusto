@@ -37,5 +37,13 @@ namespace Maui.SorteioJusto.Services.Implementations
         {
             return await _dbConnection.DeleteAsync<Jogador>(jogadorId);
         }
+
+        public async Task DeleteListaDeJogadoresAsync(List<Jogador> listaParaExclusao)
+        {
+            foreach (Jogador element in listaParaExclusao)
+            {
+                await _dbConnection.DeleteAsync<Jogador>(element.Id);
+            }
+        }
     }
 }

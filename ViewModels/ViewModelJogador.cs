@@ -2,7 +2,6 @@
 using Maui.SorteioJusto.Models;
 using Maui.SorteioJusto.Services.Interfaces;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace Maui.SorteioJusto.ViewModels
 {
@@ -25,6 +24,8 @@ namespace Maui.SorteioJusto.ViewModels
         private Jogador _objJogadorOriginal;
         [ObservableProperty]
         private ObservableCollection<Jogador> _listaDeJogadores;
+        [ObservableProperty]
+        private ObservableCollection<Jogador> _listaFiltrada;
 
         public bool IsCadastrado { get => _isCadastrado; set => _isCadastrado = value; }
 
@@ -40,6 +41,7 @@ namespace Maui.SorteioJusto.ViewModels
             _rpPartida = rpPartida;
 
             ObjJogador       = new Jogador();
+            ListaFiltrada    = new ObservableCollection<Jogador>(); 
             ListaDeJogadores = new ObservableCollection<Jogador>();
 
             CarregarLista();

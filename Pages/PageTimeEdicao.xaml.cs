@@ -5,27 +5,56 @@ namespace Maui.SorteioJusto.Pages;
 
 public partial class PageTimeEdicao : ContentPage
 {
-    Time _timeParaEdicao = new Time();
-    ViewModelPartida VMPartida = new ViewModelPartida();
+    ViewModelTime    VMTime    = new ViewModelTime();
+    ViewModelPartida VMPartida = new ViewModelPartida();    
 
-	public PageTimeEdicao(ViewModelPartida vmPartida)
+    public PageTimeEdicao(ViewModelTime vmTime)
+    {
+        InitializeComponent();
+        VMTime          = vmTime;
+        BindingContext  = VMTime;
+    }
+
+    public PageTimeEdicao(ViewModelPartida vmPartida)
 	{
 		InitializeComponent();
         VMPartida       = vmPartida;
-        _timeParaEdicao = VMPartida.TimeParaEdicao;
         BindingContext  = VMPartida;
 	}
 
-    public async void Button_SalvarTime(object sender, EventArgs e)
+    public void Button_MoverJogador(object sender, EventArgs e)
     {
-        VMPartida.EditarTime(_timeParaEdicao);
+        var button  = sender as ImageButton;
+        var jogador = button?.BindingContext as Jogador;
 
-        if (VMPartida.IsTimeEditado == true)
+        if (jogador != null)
         {
-            VMPartida.IsTimeEditado = false;
-            await Navigation.PopToRootAsync();
+            //Verificar se o jogador é do TimeParaEdicao1 ou TimeParaEdicao2
+
+            if (VMTime.TimeParaEdicao1.ListaJogadores.Contains(jogador))
+            {
+                VMTime.MoverJogador(VMTime.TimeParaEdicao1,
+                                    VMTime.TimeParaEdicao2,
+                                    jogador);            }
+            else
+            {
+                VMTime.MoverJogador(VMTime.TimeParaEdicao2,
+                                    VMTime.TimeParaEdicao1,
+                                    jogador);
+            }            
         }
     }
+
+    //public async void Button_SalvarTime(object sender, EventArgs e)
+    //{
+    //    VMPartida.EditarTime(_timeParaEdicao);
+
+    //    if (VMPartida.IsTimeEditado == true)
+    //    {
+    //        VMPartida.IsTimeEditado = false;
+    //        await Navigation.PopToRootAsync();
+    //    }
+    //}
 
     public void OnCheckBoxCheckedChanged(object sender, CheckedChangedEventArgs e)
     {

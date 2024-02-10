@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System.Collections.ObjectModel;
 
 namespace Maui.SorteioJusto.Models
 {
@@ -12,7 +13,7 @@ namespace Maui.SorteioJusto.Models
         private int           _NumeroDeVitorias = 0;
         private int           _NumeroDeEmpates  = 0;
         private int           _NumeroDeDerrotas = 0;
-        private List<Jogador> _listaJogadores   = new List<Jogador>();       
+        private List<Jogador> _listaJogadores = new List<Jogador>();
 
         [PrimaryKey,NotNull]
         public int Id { get => _id; set => _id = value; }
@@ -26,6 +27,6 @@ namespace Maui.SorteioJusto.Models
         public bool IsTimeIncompleto => ListaJogadores.Count != TotalJogadores;
 
         [Ignore]
-        public List<Jogador> ListaJogadores { get => _listaJogadores; set => _listaJogadores = value; }
+        public List<Jogador> ListaJogadores { get => _listaJogadores; set => _listaJogadores = value;}
     }
 }

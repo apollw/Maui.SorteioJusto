@@ -4,14 +4,85 @@
              x:Class = "Maui.SorteioJusto.Pages.PageTimeEdicao"
              Title   = "Editar Equipe">
     
-    <ScrollView>
-        <VerticalStackLayout Spacing="20">
-            <Label
-                Text = "Selecione os Jogadores para completar a equipe"
-                HorizontalTextAlignment = "Center" 
-                FontSize                = "20"/>
-            
-            <CollectionView x:Name = "_collectionView" ItemsSource = "{Binding ListaEditar}">
+    <VerticalStackLayout Spacing="30">
+
+        <Label Text="Time 1" FontSize="25" HorizontalOptions="Center"/>
+        <Border StrokeThickness="3" BackgroundColor="LightGreen" HorizontalOptions="Center" WidthRequest="300">
+            <!--TIME PARA EDIÇÃO 1-->
+            <CollectionView x:Name = "_collectionView1" ItemsSource = "{Binding TimeParaEdicao1.ListaJogadores}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                Grid.Column    ="0"
+                                Text           = "{Binding Nome}"
+                                FontSize       = "15"
+                                FontAttributes = "Bold"/>
+                                <ImageButton 
+                                Grid.Column="1"
+                                Source="imagem_seta1.png"
+                                WidthRequest="35" 
+                                HeightRequest="35" 
+                                Clicked="Button_MoverJogador"/>
+                            </Grid>
+
+                            <BoxView
+                            Color             = "Gray"
+                            HeightRequest     = "2"
+                            HorizontalOptions = "Fill"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>       
+
+
+        <!--TIME PARA EDIÇÃO 2-->
+        <Label Text="Time 2" FontSize="25" HorizontalOptions="Center"/>
+        <Border StrokeThickness="3" BackgroundColor="LightGreen" HorizontalOptions="Center" WidthRequest="300">
+            <CollectionView x:Name = "_collectionView2" ItemsSource = "{Binding TimeParaEdicao2.ListaJogadores}">
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" Spacing="15" Margin="15">
+                        <Image Source="imagem_sorteio.png" HorizontalOptions="Center" HeightRequest="100"/>
+                        <Label 
+                            Text                    = "Nenhum Jogador Registrado"
+                            FontSize                = "15"
+                            HorizontalOptions       = "Center"
+                            HorizontalTextAlignment = "Center"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <ImageButton 
+                                    Grid.Column="0"
+                                    Source="imagem_seta2.png"
+                                    WidthRequest="35" 
+                                    HeightRequest="35" 
+                                    HorizontalOptions="Start"
+                                    Clicked="Button_MoverJogador"/>
+                                <Label
+                                    Grid.Column    ="1"
+                                    Text           = "{Binding Nome}"
+                                    FontSize       = "15"
+                                    FontAttributes = "Bold"/>
+                            </Grid>
+                            <BoxView
+                                Color             = "Gray"
+                                HeightRequest     = "2"
+                                HorizontalOptions = "Fill"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+        
+    </VerticalStackLayout>
+</ContentPage>
+
+<!--<CollectionView x:Name = "_collectionView" ItemsSource = "{Binding ListaEditar}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border>
@@ -31,9 +102,9 @@
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
-            
-            <Button
+            </CollectionView>-->
+
+<!--<Button
                 x:Name            = "_btnSalvarTime"
                 Text              = "Salvar Time"
                 WidthRequest      = "150"
@@ -41,7 +112,4 @@
                 TextColor         = "DarkSlateGray"
                 HorizontalOptions = "End"
                 VerticalOptions   = "Start"
-                Clicked           = "Button_SalvarTime"/>
-        </VerticalStackLayout>
-    </ScrollView>
-</ContentPage>
+                Clicked           = "Button_SalvarTime"/>-->

@@ -10,5 +10,6 @@ namespace Maui.SorteioJusto.Services.Interfaces
         Task<int> AddJogadorAsync(Jogador jogador);
         Task<int> UpdateJogadorAsync(Jogador jogador);
         Task<int> DeleteJogadorAsync(int jogadorId);
+        Task DeleteListaDeJogadoresAsync(List<Jogador> listaParaExclusao);
     }
 }

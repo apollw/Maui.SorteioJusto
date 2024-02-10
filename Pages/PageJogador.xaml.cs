@@ -1,24 +1,30 @@
 using Maui.SorteioJusto.Models;
 using Maui.SorteioJusto.Services.Interfaces;
 using Maui.SorteioJusto.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace Maui.SorteioJusto.Pages;
 
 public partial class PageJogador : ContentPage
 {
-    Jogador _jogadorFiltrado   = new Jogador();
-    ViewModelJogador VMJogador = new ViewModelJogador();
+    private readonly IRepositoryJogador _rpJogador;
+    Jogador _jogadorFiltrado     = new Jogador();
+    List<Jogador> _listaFiltrada = new List<Jogador>();
+    ViewModelJogador VMJogador   = new ViewModelJogador();
     
     public PageJogador(IRepositoryJogador rpJogador, IRepositoryTime rpTime, IRepositoryPartida rpPartida)
     {
-        InitializeComponent();        
+        InitializeComponent();  
+        _rpJogador     = rpJogador;
         VMJogador      = new ViewModelJogador(rpJogador, rpTime, rpPartida);
         BindingContext = VMJogador;
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _collectionView.ItemsSource = SearchUsers(((SearchBar)sender).Text);
+        _listaFiltrada = SearchUsers(((SearchBar)sender).Text);
+        VMJogador.ListaFiltrada     = new ObservableCollection<Jogador>(_listaFiltrada);
+        _collectionView.ItemsSource = VMJogador.ListaFiltrada;
     }
 
     private List<Jogador> SearchUsers(string textoFiltro)
@@ -43,9 +49,24 @@ public partial class PageJogador : ContentPage
         _btnAdicionarJogador.IsEnabled = true;
     }
 
+    private async void Button_ExcluirJogadores(object sender, EventArgs e)
+    {
+        string message = "Deseja limpar a lista?";
+        bool confirmar = await DisplayAlert("Aviso", message, "Sim", "Não");
+
+        if (confirmar)
+        {
+            List<Jogador> listaParaExclusao = new List<Jogador>(VMJogador.ListaDeJogadores);
+
+            //Exclui todos os jogadores da lista
+            VMJogador.ListaDeJogadores.Clear();
+            await _rpJogador.DeleteListaDeJogadoresAsync(listaParaExclusao);
+        }
+    }
+
     private async void OnDeleteButtonClicked(object sender, EventArgs e)
     {
-        var button = sender as ImageButton;
+        var button  = sender as ImageButton;
         var jogador = button?.BindingContext as Jogador;
 
         if (jogador != null)
@@ -55,6 +76,7 @@ public partial class PageJogador : ContentPage
 
             if (confirmar)
             {
+                VMJogador.ListaFiltrada.Remove(jogador);
                 VMJogador.ListaDeJogadores.Remove(jogador);
                 VMJogador.ExcluirJogador(jogador);
             }
@@ -73,28 +95,3 @@ public partial class PageJogador : ContentPage
         }
     }
 }
-
-
-//private async void OnDeleteSwipeItemInvoked(object sender, EventArgs e)
-//{
-//    var swipeItem = sender as SwipeItem;
-//    var item = swipeItem?.BindingContext as Jogador;
-
-//    string message = "Deseja excluir " + item?.Nome + "?";
-//    bool confirmar = await DisplayAlert("Aviso", message, "Sim", "Nao");
-
-//    if (item != null && confirmar)
-//    {
-//        VMJogador.ListaDeJogadores.Remove(item);
-//        VMJogador.ExcluirJogador(item);
-//    }
-//}
-
-//private async void OnEditSwipeItemInvoked(object sender, EventArgs e)
-//{
-//    var swipeItem = sender as SwipeItem;
-//    var item = swipeItem.BindingContext as Jogador;
-//    VMJogador.ObjJogador = item;
-
-//    await Navigation.PushAsync(new PageJogadorCadastro(VMJogador));
-//}

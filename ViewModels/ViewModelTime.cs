@@ -21,15 +21,17 @@ namespace Maui.SorteioJusto.ViewModels
         [ObservableProperty]
         private Time          _objTime;
         [ObservableProperty]
+        private Time          _timeParaEdicao1;
+        [ObservableProperty]
+        private Time          _timeParaEdicao2;
+        [ObservableProperty]
         private Jogador       _objJogador;
 
         [ObservableProperty]
         private List<Jogador> _listaDeJogadoresPresentes;
-        [ObservableProperty]
-        private List<Jogador> _listaDeTroca1;
-        [ObservableProperty]
-        private List<Jogador> _listaDeTroca2;
 
+        [ObservableProperty]
+        private ObservableCollection<Time>    _listaDeEdicao;
         [ObservableProperty]
         private ObservableCollection<Time>    _listaDeTimes;
         [ObservableProperty]
@@ -41,17 +43,16 @@ namespace Maui.SorteioJusto.ViewModels
         public int  TamanhoDaEquipe     { get => _tamanhoDaEquipe;     set => _tamanhoDaEquipe     = value; }
         public int  QuantidadeDeTimes   { get => _quantidadeDeTimes;   set => _quantidadeDeTimes   = value; }
 
-        public ViewModelTime()
-        { }
+        public ViewModelTime() { }
 
         public ViewModelTime(IRepositoryJogador rpJogador, IRepositoryTime rpTime)
         {
             ObjTime                      = new Time();
             ObjJogador                   = new Jogador();
+            TimeParaEdicao1              = new Time();
+            TimeParaEdicao2              = new Time();
             ListaDeTimes                 = new ObservableCollection<Time>();
             ListaDeJogadores             = new ObservableCollection<Jogador>();
-            ListaDeTroca1                = new List<Jogador>();
-            ListaDeTroca2                = new List<Jogador>();
             ListaDeJogadoresPresentes    = new List<Jogador>();
             
             _rpJogador = rpJogador;
@@ -214,6 +215,48 @@ namespace Maui.SorteioJusto.ViewModels
             {
                 await Shell.Current.DisplayAlert("Aviso","Quantidade incorreta de jogadores selecionada","Retornar");
                 await Shell.Current.Navigation.PopAsync();
+            }
+        }
+
+        public async void MoverJogador(Time timeDeOrigem, Time timeDeDestino, Jogador jogador)
+        {
+            try
+            {
+                if (!(timeDeDestino.ListaJogadores.Count < timeDeDestino.TotalJogadores))
+                {
+                    throw new Exception("Não é possível adicionar mais jogadores");
+                }
+
+                List<TimeJogador> listaDeTimeJogador = await _rpTime.GetTimeJogadoresAsync();
+
+                //Operações no Time de Origem
+                timeDeOrigem.ListaJogadores.Remove(jogador);
+
+                //Exclui a relação TimeJogador
+                foreach (TimeJogador tj in listaDeTimeJogador)
+                {
+                    if (tj.Time == timeDeOrigem.Id && tj.Jogador == jogador.Id)
+                        await _rpTime.DeleteTimeJogadorAsync(tj.Id);
+                }
+
+                //Atualiza o time no banco
+                await _rpTime.UpdateTimeAsync(timeDeOrigem);
+
+                //Operações no Time de Destino
+                timeDeDestino.ListaJogadores.Add(jogador);
+
+                //Adiciona nova relação TimeJogador                
+                TimeJogador timeJogador = new TimeJogador();
+                timeJogador.Time    = timeDeDestino.Id;
+                timeJogador.Jogador = jogador.Id;
+                await _rpTime.AddTimeJogadorAsync(timeJogador);
+
+                //Atualiza o time no banco
+                await _rpTime.UpdateTimeAsync(timeDeDestino);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Erro", ex.Message, "Fechar");
             }
         }
 
